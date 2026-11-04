@@ -1,0 +1,7 @@
+ID,employeeCode,firstName,lastName,email,phone,dateOfJoining,department_ID,status
+aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa,EMP101,Aarav,Sharma,aarav.sharma@example.org,9876543210,2024-01-15,11111111-1111-4111-8111-111111111111,Active
+bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb,EMP102,Riya,Mehta,riya.mehta@example.org,9876543211,2023-06-12,22222222-2222-4222-8222-222222222222,Active
+cccccccc-cccc-4ccc-8ccc-cccccccccccc,EMP103,Kabir,Verma,kabir.verma@example.org,9876543212,2022-09-05,33333333-3333-4333-8333-333333333333,Active
+dddddddd-dddd-4ddd-8ddd-dddddddddddd,EMP104,Ananya,Gupta,ananya.gupta@example.org,9876543213,2024-03-20,44444444-4444-4444-8444-444444444444,Active
+eeeeeeee-eeee-4eee-8eee-eeeeeeeeeeee,EMP105,Arjun,Malhotra,arjun.malhotra@example.org,9876543214,2023-11-10,11111111-1111-4111-8111-111111111111,Active
+ffffffff-ffff-4fff-8fff-ffffffffffff,EMP106,Meera,Kapoor,meera.kapoor@example.org,9876543215,2025-02-01,33333333-3333-4333-8333-333333333333,Inactive
