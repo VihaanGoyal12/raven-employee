@@ -100,6 +100,25 @@ Verified scenarios include:
 
 ## 9. Deployment
 
-Production deployment to SAP BTP Cloud Foundry using SAP HANA is pending.
+## Deployment
 
-Deployed service URL: To be added after deployment.
+The Employee Directory CAP service is deployed on SAP BTP Cloud Foundry using SAP HANA Cloud as the production database.
+
+**Environment:** SAP BTP Cloud Foundry (Asia-Pacific – Singapore)
+
+**Service URL:**
+`https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com`
+
+**OData V4 endpoint:**
+`https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/employee`
+
+**Available entities:**
+- `/Departments`
+- `/Employees`
+
+**Authentication:** XSUAA (OAuth 2.0 Client Credentials)
+
+**Database:** SAP HANA Cloud
+
+**Deployment status:** Successfully deployed and tested. All Day 1 API tests, including validation, update and deletion scenarios, passed.
+
