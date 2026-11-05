@@ -29,3 +29,6 @@ mta_archives/
 # SQLite temporary files
 *.sqlite-shm
 *.sqlite-wal
+# MTA operation logs
+mta-op-*/
+db.sqlite.backup
