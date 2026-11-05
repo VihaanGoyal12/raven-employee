@@ -1,0 +1,36 @@
+{
+  "format_version": 1,
+  "imports": [
+    {
+      "target_table": "RAVEN_INVENTORY_WAREHOUSES",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "raven.inventory-Warehouses.csv",
+        "has_header": true,
+        "type_config": {
+          "delimiter": ","
+        }
+      },
+      "import_settings": {
+        "import_columns": [
+          "ID",
+          "NAME",
+          "LOCATION"
+        ],
+        "include_filter": [
+          {
+            "ID": "06a2b02a-eede-49d0-8a56-7659c73bb0a1"
+          },
+          {
+            "ID": "70026cba-6d43-4207-b4c0-fb1ba0a7c3b9"
+          }
+        ]
+      },
+      "column_mappings": {
+        "ID": "ID",
+        "NAME": "name",
+        "LOCATION": "location"
+      }
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "format_version": 1,
+  "imports": [
+    {
+      "target_table": "RAVEN_INVENTORY_PRODUCTS",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "raven.inventory-Products.csv",
+        "has_header": true,
+        "type_config": {
+          "delimiter": ","
+        }
+      },
+      "import_settings": {
+        "import_columns": [
+          "ID",
+          "SKU",
+          "NAME"
+        ],
+        "include_filter": [
+          {
+            "ID": "017d960a-a927-4183-b153-340518fc0569"
+          }
+        ]
+      },
+      "column_mappings": {
+        "ID": "ID",
+        "SKU": "sku",
+        "NAME": "name"
+      }
+    }
+  ]
+}

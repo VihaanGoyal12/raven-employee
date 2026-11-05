@@ -1,0 +1,38 @@
+{
+  "format_version": 1,
+  "imports": [
+    {
+      "target_table": "RAVEN_INVENTORY_STOCKITEMS",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "raven.inventory-StockItems.csv",
+        "has_header": true,
+        "type_config": {
+          "delimiter": ","
+        }
+      },
+      "import_settings": {
+        "import_columns": [
+          "ID",
+          "WAREHOUSE_ID",
+          "PRODUCT_ID",
+          "QUANTITY"
+        ],
+        "include_filter": [
+          {
+            "ID": "a2d8bd94-09bf-49be-8ca9-943248559d93"
+          },
+          {
+            "ID": "bddc10c4-5cf3-4a56-8464-3e1582872bb7"
+          }
+        ]
+      },
+      "column_mappings": {
+        "ID": "ID",
+        "WAREHOUSE_ID": "warehouse_ID",
+        "PRODUCT_ID": "product_ID",
+        "QUANTITY": "quantity"
+      }
+    }
+  ]
+}
