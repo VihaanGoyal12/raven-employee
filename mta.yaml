@@ -1,4 +1,3 @@
-
 _schema-version: 3.3.0
 ID: raven-employee-directory
 version: 1.0.0
@@ -52,5 +51,21 @@ resources:
       service: xsuaa
       service-plan: application
       config:
-        xsappname: raven-employee-directory-${org}-${space}
+        xsappname: raven-employee-directory-f1de4b2dtrial-dev
         tenant-mode: dedicated
+        oauth2-configuration:
+          redirect-uris:
+            - https://oauth.pstmn.io/v1/callback
+        scopes:
+          - name: $XSAPPNAME.SalesUser
+            description: Create/view sales orders
+          - name: $XSAPPNAME.SalesManager
+            description: Approve sales orders
+        role-templates:
+          - name: SalesUserRole
+            scope-references:
+              - $XSAPPNAME.SalesUser
+          - name: SalesManagerRole
+            scope-references:
+              - $XSAPPNAME.SalesUser
+              - $XSAPPNAME.SalesManager

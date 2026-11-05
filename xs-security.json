@@ -1,0 +1,29 @@
+{
+  "xsappname": "raven-sales-srv",
+  "tenant-mode": "dedicated",
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.SalesUser",
+      "description": "Create/view sales orders"
+    },
+    {
+      "name": "$XSAPPNAME.SalesManager",
+      "description": "Approve sales orders"
+    }
+  ],
+  "role-templates": [
+    {
+      "name": "SalesUserRole",
+      "scope-references": [
+        "$XSAPPNAME.SalesUser"
+      ]
+    },
+    {
+      "name": "SalesManagerRole",
+      "scope-references": [
+        "$XSAPPNAME.SalesUser",
+        "$XSAPPNAME.SalesManager"
+      ]
+    }
+  ]
+}

@@ -1,3 +1,4 @@
+
 {
   "file_suffixes": {
     "csv": {
@@ -11,6 +12,9 @@
     },
     "hdbindex": {
       "plugin_name": "com.sap.hana.di.index"
+    },
+    "hdbprocedure": {
+      "plugin_name": "com.sap.hana.di.procedure"
     },
     "hdbtable": {
       "plugin_name": "com.sap.hana.di.table"
