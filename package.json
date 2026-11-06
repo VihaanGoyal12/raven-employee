@@ -23,6 +23,40 @@
           "url": "db.sqlite"
         }
       },
+      "[development]": {
+        "auth": {
+          "kind": "mocked",
+          "users": {
+            "sally": {
+              "password": "pass",
+              "roles": [
+                "SalesUser"
+              ]
+            },
+            "max": {
+              "password": "pass",
+              "roles": [
+                "SalesUser",
+                "SalesManager"
+              ]
+            },
+            "alex": {
+              "password": "pass",
+              "roles": [
+                "FulfillmentManager"
+              ]
+            },
+            "admin": {
+              "password": "pass",
+              "roles": [
+                "SalesUser",
+                "SalesManager",
+                "FulfillmentManager"
+              ]
+            }
+          }
+        }
+      },
       "[production]": {
         "db": {
           "kind": "hana"
