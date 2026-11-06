@@ -8,6 +8,6 @@
     "node": "^24"
   },
   "scripts": {
-    "start": "node node_modules/@sap/hdi-deploy/deploy.js --use-hdb --parameter com.sap.hana.di.table/try_fast_table_migration=true"
+    "start": "node node_modules/@sap/hdi-deploy/deploy.js --use-hdb --parameter com.sap.hana.di.table/try_fast_table_migration=true --treat-unmodified-as-modified"
   }
 }
