@@ -1,3 +1,4 @@
+
 _schema-version: 3.3.0
 ID: raven-employee-directory
 version: 1.0.0
@@ -61,6 +62,8 @@ resources:
             description: Create/view sales orders
           - name: $XSAPPNAME.SalesManager
             description: Approve sales orders
+          - name: $XSAPPNAME.FulfillmentManager
+            description: Reserve stock and dispatch orders
         role-templates:
           - name: SalesUserRole
             scope-references:
@@ -69,3 +72,6 @@ resources:
             scope-references:
               - $XSAPPNAME.SalesUser
               - $XSAPPNAME.SalesManager
+          - name: FulfillmentManagerRole
+            scope-references:
+              - $XSAPPNAME.FulfillmentManager

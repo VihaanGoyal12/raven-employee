@@ -36,3 +36,9 @@ db.sqlite.backup
 db.sqlite.backup*
 db/seed-backup/
 nano.*.save
+
+# Local CAP configuration
+.cdsrc.yaml
+
+# Recovered SQLite database backups
+db.sqlite.*

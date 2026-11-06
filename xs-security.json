@@ -1,14 +1,24 @@
+
 {
-  "xsappname": "raven-sales-srv",
+  "xsappname": "raven-employee-directory-f1de4b2dtrial-dev",
   "tenant-mode": "dedicated",
+  "oauth2-configuration": {
+    "redirect-uris": [
+      "https://oauth.pstmn.io/v1/callback"
+    ]
+  },
   "scopes": [
     {
       "name": "$XSAPPNAME.SalesUser",
-      "description": "Create/view sales orders"
+      "description": "Create and view sales orders"
     },
     {
       "name": "$XSAPPNAME.SalesManager",
       "description": "Approve sales orders"
+    },
+    {
+      "name": "$XSAPPNAME.FulfillmentManager",
+      "description": "Reserve stock and dispatch orders"
     }
   ],
   "role-templates": [
@@ -23,6 +33,12 @@
       "scope-references": [
         "$XSAPPNAME.SalesUser",
         "$XSAPPNAME.SalesManager"
+      ]
+    },
+    {
+      "name": "FulfillmentManagerRole",
+      "scope-references": [
+        "$XSAPPNAME.FulfillmentManager"
       ]
     }
   ]
