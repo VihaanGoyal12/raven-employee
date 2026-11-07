@@ -8,8 +8,2172 @@
   },
   "item": [
     {
+      "name": "day1",
+      "item": [
+        {
+          "name": "update a new id-200",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone\": \"9999999999\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/employee/Employees(aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa)",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "employee",
+                "Employees(aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa)"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "post a new id-201",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials",
+                  "type": "string"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://f1de4b2dtrial.authentication.ap21.hana.ondemand.com/oauth/token",
+                  "type": "string"
+                },
+                {
+                  "key": "clientId",
+                  "value": "sb-raven-employee-directory-f1de4b2dtrial-dev!t151828",
+                  "type": "string"
+                },
+                {
+                  "key": "clientSecret",
+                  "value": "36011232-690b-4ba1-b445-c036277fccfd$bHxT3g0m14gBj5dqnGZkNL1L4EGhnzDQUXndgeDOQ5w=",
+                  "type": "string"
+                },
+                {
+                  "key": "tokenName",
+                  "value": "Raven auth",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"employeeCode\": \"EMP102\",\n  \"firstName\": \"Riya\",\n  \"lastName\": \"Mehta\",\n  \"email\": \"riya.mehta@example.org\",\n  \"phone\": \"9876543211\",\n  \"dateOfJoining\": \"2026-11-04\",\n  \"status\": \"Active\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/employee/Employees",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "employee",
+                "Employees"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete a id-204",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/employee/Employees(aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa)",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "employee",
+                "Employees(aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa)"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get using id-200",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                },
+                {
+                  "key": "tokenName",
+                  "value": "Raven XSUAA",
+                  "type": "string"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://f1de4b2dtrial.authentication.ap21.hana.ondemand.com/oauth/token",
+                  "type": "string"
+                },
+                {
+                  "key": "clientId",
+                  "value": "sb-raven-employee-directory-f1de4b2dtrial-dev!t151828",
+                  "type": "string"
+                },
+                {
+                  "key": "clientSecret",
+                  "value": "08589bd3-16ad-43d0-bae1-42e2c0cbd7bf$sIxQByy3CMS3AU2arHlYA-tVrMcrQbSzYJmJtbQVgII=",
+                  "type": "string"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/employee/Employees",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "employee",
+                "Employees"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "post department-201",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                },
+                {
+                  "key": "headerPrefix",
+                  "value": "Bearer",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Operations\",\n  \"costCenter\": \"OPS001\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/employee/Departments",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "employee",
+                "Departments"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get deparment-200",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/employee/Departments",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "employee",
+                "Departments"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get deleted-404",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/employee/Employees(aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa)",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "employee",
+                "Employees(aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa)"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "invalid email-400",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"employeqeCode\": \"EMP999\",\n  \"firstName\": \"Test\",\n  \"lastName\": \"User\",\n  \"email\": \"invalid-email\",\n  \"phone\": \"9876543210\",\n  \"dateOfJoining\": \"2026-11-04\",\n  \"status\": \"Active\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/employee/Employees",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "employee",
+                "Employees"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "day2",
+      "item": [
+        {
+          "name": "get supplier-200",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/procurement/Suppliers",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "procurement",
+                "Suppliers"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "post purchase order-200",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"poNumber\": \"PO-1002\",\n  \"supplier_ID\": \"1343cd62-839b-4141-8496-9ce0e9e56ec5\",\n  \"items\": [\n    {\n      \"productName\": \"Laptop\",\n      \"quantity\": 1,\n      \"unitPrice\": 30000\n    },\n    {\n      \"productName\": \"Mouse\",\n      \"quantity\": 2,\n      \"unitPrice\": 500\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/procurement/PurchaseOrders",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "procurement",
+                "PurchaseOrders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "invalid price-400",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"poNumber\": \"PO-1002\",\n  \"supplier_ID\": \"1343cd62-839b-4141-8496-9ce0e9e56ec5\",\n  \"items\": [\n    {\n      \"productName\": \"Laptop\",\n      \"quantity\": 1,\n      \"unitPrice\": 30000\n    },\n    {\n      \"productName\": \"Mouse\",\n      \"quantity\": 2,\n      \"unitPrice\": 500\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/procurement/PurchaseOrders",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "procurement",
+                "PurchaseOrders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "post supplier-201",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Tech Supplies Ltd\",\n  \"creditLimit\": 50000\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/procurement/Suppliers",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "procurement",
+                "Suppliers"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get purchase order-200",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/procurement/PurchaseOrders?$expand=items",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "procurement",
+                "PurchaseOrders"
+              ],
+              "query": [
+                {
+                  "key": "$expand",
+                  "value": "items"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "invalid quantity-400",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"poNumber\": \"PO-1004\",\n  \"supplier_ID\": \"1343cd62-839b-4141-8496-9ce0e9e56ec5\",\n  \"items\": [\n    {\n      \"productName\": \"Keyboard\",\n      \"quantity\": 1,\n      \"unitPrice\": 0\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/procurement/PurchaseOrders",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "procurement",
+                "PurchaseOrders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "missing supplier-404",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"poNumber\": \"PO-1005\",\n  \"supplier_ID\": \"00000000-0000-0000-0000-000000000000\",\n  \"items\": [\n    {\n      \"productName\": \"Keyboard\",\n      \"quantity\": 1,\n      \"unitPrice\": 1000\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/procurement/PurchaseOrders",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "procurement",
+                "PurchaseOrders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "New Request",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/procurement/Suppliers",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "procurement",
+                "Suppliers"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "day3",
+      "item": [
+        {
+          "name": "get warehouse",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/inventory/Warehouses",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "inventory",
+                "Warehouses"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get producst",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/inventory/Products",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "inventory",
+                "Products"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get stock items",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/inventory/StockItems",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "inventory",
+                "StockItems"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get stock summary",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/inventory/StockSummary",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "inventory",
+                "StockSummary"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get stock limit",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/inventory/getStockAvailability(warehouse=06a2b02a-eede-49d0-8a56-7659c73bb0a1,product=017d960a-a927-4183-b153-340518fc0569)",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "inventory",
+                "getStockAvailability(warehouse=06a2b02a-eede-49d0-8a56-7659c73bb0a1,product=017d960a-a927-4183-b153-340518fc0569)"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Transfer stock",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"fromWarehouse\": \"06a2b02a-eede-49d0-8a56-7659c73bb0a1\",\n    \"toWarehouse\": \"70026cba-6d43-4207-b4c0-fb1ba0a7c3b9\",\n    \"product\": \"017d960a-a927-4183-b153-340518fc0569\",\n    \"quantity\": 5\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/inventory/transferStock",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "inventory",
+                "transferStock"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "low stock-422",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"fromWarehouse\": \"06a2b02a-eede-49d0-8a56-7659c73bb0a1\",\n    \"toWarehouse\": \"70026cba-6d43-4207-b4c0-fb1ba0a7c3b9\",\n    \"product\": \"017d960a-a927-4183-b153-340518fc0569\",\n    \"quantity\": 100\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/inventory/transferStock",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "inventory",
+                "transferStock"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "New Request",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"fromWarehouse\": \"06a2b02a-eede-49d0-8a56-7659c73bb0a1\",\n    \"toWarehouse\": \"06a2b02a-eede-49d0-8a56-7659c73bb0a1\",\n    \"product\": \"017d960a-a927-4183-b153-340518fc0569\",\n    \"quantity\": 5\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/inventory/transferStock",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "inventory",
+                "transferStock"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "day4",
+      "item": [
+        {
+          "name": "get customer-200",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/sales/Customers",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "sales",
+                "Customers"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get salesorder-401",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/sales/SalesOrders",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "sales",
+                "SalesOrders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get salesorder-200",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code",
+                  "type": "string"
+                },
+                {
+                  "key": "tokenName",
+                  "value": "Day4-SalesUser-Token",
+                  "type": "string"
+                },
+                {
+                  "key": "clientId",
+                  "value": "sb-raven-employee-directory-f1de4b2dtrial-dev!t151828",
+                  "type": "string"
+                },
+                {
+                  "key": "clientSecret",
+                  "value": "36011232-690b-4ba1-b445-c036277fccfd$bHxT3g0m14gBj5dqnGZkNL1L4EGhnzDQUXndgeDOQ5w=",
+                  "type": "string"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://f1de4b2dtrial.authentication.ap21.hana.ondemand.com/oauth/token",
+                  "type": "string"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "https://oauth.pstmn.io/v1/callback",
+                  "type": "string"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://f1de4b2dtrial.authentication.ap21.hana.ondemand.com/oauth/authorize",
+                  "type": "string"
+                },
+                {
+                  "key": "scope",
+                  "value": "raven-employee-directory-f1de4b2dtrial-dev!t151828.SalesUser",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/sales/SalesOrders",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "sales",
+                "SalesOrders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create salesorder-201",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customer_ID\": \"22222222-2222-4222-8222-222222222222\",\n  \"grossAmount\": 12000\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/sales/SalesOrders",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "sales",
+                "SalesOrders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "approve order-200",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                },
+                {
+                  "key": "tokenName",
+                  "value": "Day4-SalesManager-Token",
+                  "type": "string"
+                },
+                {
+                  "key": "scope",
+                  "value": "raven-employee-directory-f1de4b2dtrial-dev!t151828.SalesManager",
+                  "type": "string"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://f1de4b2dtrial.authentication.ap21.hana.ondemand.com/oauth/authorize",
+                  "type": "string"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "https://oauth.pstmn.io/v1/callback",
+                  "type": "string"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://f1de4b2dtrial.authentication.ap21.hana.ondemand.com/oauth/token",
+                  "type": "string"
+                },
+                {
+                  "key": "clientId",
+                  "value": "sb-raven-employee-directory-f1de4b2dtrial-dev!t151828",
+                  "type": "string"
+                },
+                {
+                  "key": "clientSecret",
+                  "value": "36011232-690b-4ba1-b445-c036277fccfd$bHxT3g0m14gBj5dqnGZkNL1L4EGhnzDQUXndgeDOQ5w=",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/sales/SalesOrders(346c1d95-b6cb-4c90-a58e-a4588c83fb93)/approveOrder",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "sales",
+                "SalesOrders(346c1d95-b6cb-4c90-a58e-a4588c83fb93)",
+                "approveOrder"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Regular Order - 5% Discount-201",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customer_ID\": \"11111111-1111-4111-8111-111111111111\",\n  \"grossAmount\": 8000\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/sales/SalesOrders",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "sales",
+                "SalesOrders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Order - Invalid Amount-400",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/sales/SalesOrders",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "sales",
+                "SalesOrders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "approve order-403(wrong auth)",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/sales/SalesOrders(346c1d95-b6cb-4c90-a58e-a4588c83fb93)/approveOrder",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "sales",
+                "SalesOrders(346c1d95-b6cb-4c90-a58e-a4588c83fb93)",
+                "approveOrder"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "New Request",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "New Request",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "day5",
+      "item": [
+        {
+          "name": "Get Sales Orders",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/employee/",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "employee",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Sales Customer",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Day5 Test Customer\",\n    \"customerType\": \"Regular\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/sales/Customers",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "sales",
+                "Customers"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Sales Order with Items",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"customer_ID\": \"ebf0edf1-4244-4c82-8ab0-95770d6f4543\",\n    \"grossAmount\": 12000,\n    \"items\": [\n        {\n            \"product\": \"Laptop\",\n            \"quantity\": 2,\n            \"unitPrice\": 6000\n        }\n    ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/sales/SalesOrders",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "sales",
+                "SalesOrders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Verify Discount Calculation",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/sales/SalesOrders(36369efe-cbf7-40ea-ac61-9cc9336ee605)",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "sales",
+                "SalesOrders(36369efe-cbf7-40ea-ac61-9cc9336ee605)"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Approve Sales Order",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "clientId",
+                  "value": "sb-raven-employee-directory-f1de4b2dtrial-dev!t151828",
+                  "type": "string"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://f1de4b2dtrial.authentication.ap21.hana.ondemand.com/oauth/token",
+                  "type": "string"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://f1de4b2dtrial.authentication.ap21.hana.ondemand.com/oauth/authorize",
+                  "type": "string"
+                },
+                {
+                  "key": "tokenName",
+                  "value": "Day5-SalesManager-Token",
+                  "type": "string"
+                },
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                },
+                {
+                  "key": "clientSecret",
+                  "value": "777e2d02-25d3-4e07-b9a2-9199c8a590c8$cNsSyJ3Ij_JVJvwD8dTHOFjaTJBiDDY3ks0D9RB7MUc=",
+                  "type": "string"
+                },
+                {
+                  "key": "scope",
+                  "value": "raven-employee-directory-f1de4b2dtrial-dev!t151828.SalesUser raven-employee-directory-f1de4b2dtrial-dev!t151828.SalesManager",
+                  "type": "string"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "https://oauth.pstmn.io/v1/callback",
+                  "type": "string"
+                },
+                {
+                  "key": "useBrowser",
+                  "value": true,
+                  "type": "boolean"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/sales/SalesOrders(36369efe-cbf7-40ea-ac61-9cc9336ee605)/SalesService.approveOrder",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "sales",
+                "SalesOrders(36369efe-cbf7-40ea-ac61-9cc9336ee605)",
+                "SalesService.approveOrder"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "SalesUser Cannot Approve Order",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/sales/SalesOrders(36369efe-cbf7-40ea-ac61-9cc9336ee605)/SalesService.approveOrder",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "sales",
+                "SalesOrders(36369efe-cbf7-40ea-ac61-9cc9336ee605)",
+                "SalesService.approveOrder"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Reserve Stock",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "clientId",
+                  "value": "sb-raven-employee-directory-f1de4b2dtrial-dev!t151828",
+                  "type": "string"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://f1de4b2dtrial.authentication.ap21.hana.ondemand.com/oauth/token",
+                  "type": "string"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://f1de4b2dtrial.authentication.ap21.hana.ondemand.com/oauth/authorize",
+                  "type": "string"
+                },
+                {
+                  "key": "tokenName",
+                  "value": "day5 fulfillment token",
+                  "type": "string"
+                },
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                },
+                {
+                  "key": "clientSecret",
+                  "value": "777e2d02-25d3-4e07-b9a2-9199c8a590c8$cNsSyJ3Ij_JVJvwD8dTHOFjaTJBiDDY3ks0D9RB7MUc=",
+                  "type": "string"
+                },
+                {
+                  "key": "scope",
+                  "value": "raven-employee-directory-f1de4b2dtrial-dev!t151828.FulfillmentManager",
+                  "type": "string"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "https://oauth.pstmn.io/v1/callback",
+                  "type": "string"
+                },
+                {
+                  "key": "useBrowser",
+                  "value": true,
+                  "type": "boolean"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/sales/SalesOrders(36369efe-cbf7-40ea-ac61-9cc9336ee605)/SalesService.reserveStock",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "sales",
+                "SalesOrders(36369efe-cbf7-40ea-ac61-9cc9336ee605)",
+                "SalesService.reserveStock"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Verify Stock Reservations",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/fulfillment/StockReservations",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "fulfillment",
+                "StockReservations"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Sales Order",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customer_ID\": \"ebf0edf1-4244-4c82-8ab0-95770d6f4543\",\n  \"grossAmount\": 51000,\n  \"items\": [\n    {\n      \"product\": \"Laptop\",\n      \"quantity\": 51,\n      \"unitPrice\": 1000\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/sales/SalesOrders",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "sales",
+                "SalesOrders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Approve the test order",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/sales/SalesOrders(3cd47c0d-611d-492a-ac2f-50d16c45c42c)/SalesService.approveOrder",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "sales",
+                "SalesOrders(3cd47c0d-611d-492a-ac2f-50d16c45c42c)",
+                "SalesService.approveOrder"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create sales order- insufficient stock",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/sales/SalesOrders(3cd47c0d-611d-492a-ac2f-50d16c45c42c)/SalesService.reserveStock",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "sales",
+                "SalesOrders(3cd47c0d-611d-492a-ac2f-50d16c45c42c)",
+                "SalesService.reserveStock"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Order Dispatch",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/sales/SalesOrders(36369efe-cbf7-40ea-ac61-9cc9336ee605)/SalesService.dispatchOrder",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "sales",
+                "SalesOrders(36369efe-cbf7-40ea-ac61-9cc9336ee605)",
+                "SalesService.dispatchOrder"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "New Request",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/sales/SalesOrders(3cd47c0d-611d-492a-ac2f-50d16c45c42c)",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "sales",
+                "SalesOrders(3cd47c0d-611d-492a-ac2f-50d16c45c42c)"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Dispatch Before Reservation",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/sales/SalesOrders(3cd47c0d-611d-492a-ac2f-50d16c45c42c)/SalesService.dispatchOrder",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "sales",
+                "SalesOrders(3cd47c0d-611d-492a-ac2f-50d16c45c42c)",
+                "SalesService.dispatchOrder"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Verify Updated Stock",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/inventory/StockItems",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "inventory",
+                "StockItems"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Order Fulfillment Summary",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://f1de4b2dtrial-dev-raven-employee-directory-srv.cfapps.ap21.hana.ondemand.com/odata/v4/sales/OrderFulfillmentSummary",
+              "protocol": "https",
+              "host": [
+                "f1de4b2dtrial-dev-raven-employee-directory-srv",
+                "cfapps",
+                "ap21",
+                "hana",
+                "ondemand",
+                "com"
+              ],
+              "path": [
+                "odata",
+                "v4",
+                "sales",
+                "OrderFulfillmentSummary"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
       "name": "POST Create Department",
       "request": {
+        "auth": {
+          "type": "oauth2",
+          "oauth2": [
+            {
+              "key": "addTokenTo",
+              "value": "header",
+              "type": "string"
+            }
+          ]
+        },
         "method": "POST",
         "header": [
           {
@@ -63,6 +2227,10 @@
           {
             "key": "user-agent",
             "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36"
+          },
+          {
+            "key": "Cookie",
+            "value": "kndctr_227AC2D754DCAB340A4C98C6_AdobeOrg_consent=general=in; kndctr_227AC2D754DCAB340A4C98C6_AdobeOrg_identity=CiY0MzIyOTY1MjMyMTY3MzA0MjE4MDA5Nzg0NDY3MzI0MTk4MjQxOVIRCOHUgo2YNBgBKgRJTkQxMAGgAe3Ugo2YNLABrizwAeHUgo2YNA==; AMCV_227AC2D754DCAB340A4C98C6%40AdobeOrg=MCMID|43229652321673042180097844673241982419; mbox=session#43229652321673042180097844673241982419-Cklvxx#1793254912|PC#96db46561aba4948a85fb32089211048.41_0#1856347382; workspaces-ws-4dguy_WSR_SESSIONID=KFnNbMkPU9qJpuiGYziLRZMYHI4ejNThfidfsTVxUcF5Q3yCuUNExumieDRJrQnVVHQ1XrdfMtO1/qJgGrDVAA=="
           }
         ],
         "body": {
@@ -93,6 +2261,16 @@
     {
       "name": "Get Departments-BAS",
       "request": {
+        "auth": {
+          "type": "oauth2",
+          "oauth2": [
+            {
+              "key": "addTokenTo",
+              "value": "header",
+              "type": "string"
+            }
+          ]
+        },
         "method": "GET",
         "header": [
           {
@@ -146,6 +2324,10 @@
           {
             "key": "user-agent",
             "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36"
+          },
+          {
+            "key": "Cookie",
+            "value": "kndctr_227AC2D754DCAB340A4C98C6_AdobeOrg_consent=general=in; kndctr_227AC2D754DCAB340A4C98C6_AdobeOrg_identity=CiY0MzIyOTY1MjMyMTY3MzA0MjE4MDA5Nzg0NDY3MzI0MTk4MjQxOVIRCOHUgo2YNBgBKgRJTkQxMAGgAe3Ugo2YNLABrizwAeHUgo2YNA==; AMCV_227AC2D754DCAB340A4C98C6%40AdobeOrg=MCMID|43229652321673042180097844673241982419; mbox=session#43229652321673042180097844673241982419-Cklvxx#1793254912|PC#96db46561aba4948a85fb32089211048.41_0#1856347382; workspaces-ws-4dguy_WSR_SESSIONID=KFnNbMkPU9qJpuiGYziLRZMYHI4ejNThfidfsTVxUcF5Q3yCuUNExumieDRJrQnVVHQ1XrdfMtO1/qJgGrDVAA=="
           }
         ],
         "url": {
@@ -167,6 +2349,16 @@
     {
       "name": "Get employee by id-BAS aarav",
       "request": {
+        "auth": {
+          "type": "oauth2",
+          "oauth2": [
+            {
+              "key": "addTokenTo",
+              "value": "header",
+              "type": "string"
+            }
+          ]
+        },
         "method": "GET",
         "header": [
           {
@@ -220,18 +2412,29 @@
           {
             "key": "user-agent",
             "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36"
+          },
+          {
+            "key": "Cookie",
+            "value": "kndctr_227AC2D754DCAB340A4C98C6_AdobeOrg_consent=general=in; kndctr_227AC2D754DCAB340A4C98C6_AdobeOrg_identity=CiY0MzIyOTY1MjMyMTY3MzA0MjE4MDA5Nzg0NDY3MzI0MTk4MjQxOVIRCOHUgo2YNBgBKgRJTkQxMAGgAe3Ugo2YNLABrizwAeHUgo2YNA==; AMCV_227AC2D754DCAB340A4C98C6%40AdobeOrg=MCMID|43229652321673042180097844673241982419; mbox=session#43229652321673042180097844673241982419-Cklvxx#1793254912|PC#96db46561aba4948a85fb32089211048.41_0#1856347382; workspaces-ws-4dguy_WSR_SESSIONID=KFnNbMkPU9qJpuiGYziLRZMYHI4ejNThfidfsTVxUcF5Q3yCuUNExumieDRJrQnVVHQ1XrdfMtO1/qJgGrDVAA=="
           }
         ],
         "url": {
-          "raw": "{{baseUrl}}/odata/v4/employee/Departments",
+          "raw": "https://port4004-workspaces-ws-4dguy.ap21.trial.applicationstudio.cloud.sap/odata/v4/employee/Employees/fbd24f67-b6d0-43d0-b5bb-eead5db3db2d",
+          "protocol": "https",
           "host": [
-            "{{baseUrl}}"
+            "port4004-workspaces-ws-4dguy",
+            "ap21",
+            "trial",
+            "applicationstudio",
+            "cloud",
+            "sap"
           ],
           "path": [
             "odata",
             "v4",
             "employee",
-            "Departments"
+            "Employees",
+            "fbd24f67-b6d0-43d0-b5bb-eead5db3db2d"
           ]
         },
         "description": "Generated from cURL: curl --url 'https://port4004-workspaces-ws-4dguy.ap21.trial.applicationstudio.cloud.sap/odata/v4/employee/Departments' \\\n  -H 'accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/jxl,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7' \\\n  -H 'accept-language: en-US,en-IN;q=0.9,en;q=0.8,hi-IN;q=0.7,hi;q=0.6' \\\n  -H 'cache-control: max-age=0' \\\n  -b 'kndctr_227AC2D754DCAB340A4C98C6_AdobeOrg_consent=general=in; kndctr_227AC2D754DCAB340A4C98C6_AdobeOrg_identity=CiY0MzIyOTY1MjMyMTY3MzA0MjE4MDA5Nzg0NDY3MzI0MTk4MjQxOVIRCOHUgo2YNBgBKgRJTkQxMAGgAe3Ugo2YNLABrizwAeHUgo2YNA==; AMCV_227AC2D754DCAB340A4C98C6%40AdobeOrg=MCMID|43229652321673042180097844673241982419; mbox=session#43229652321673042180097844673241982419-Cklvxx#1793254912|PC#96db46561aba4948a85fb32089211048.41_0#1856347382; workspaces-ws-4dguy_WSR_SESSIONID=KFnNbMkPU9qJpuiGYziLRZMYHI4ejNThfidfsTVxUcF5Q3yCuUNExumieDRJrQnVVHQ1XrdfMtO1/qJgGrDVAA==' \\\n  -H 'priority: u=0, i' \\\n  -H 'sec-ch-ua: \"Not:A-Brand\";v=\"8\", \"Chromium\";v=\"156\", \"Google Chrome\";v=\"156\"' \\\n  -H 'sec-ch-ua-mobile: ?0' \\\n  -H 'sec-ch-ua-platform: \"macOS\"' \\\n  -H 'sec-fetch-dest: document' \\\n  -H 'sec-fetch-mode: navigate' \\\n  -H 'sec-fetch-site: none' \\\n  -H 'sec-fetch-user: ?1' \\\n  -H 'upgrade-insecure-requests: 1' \\\n  -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36'"
@@ -241,7 +2444,17 @@
     {
       "name": "DELETE employee",
       "request": {
-        "method": "GET",
+        "auth": {
+          "type": "oauth2",
+          "oauth2": [
+            {
+              "key": "addTokenTo",
+              "value": "header",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
         "header": [
           {
             "key": "accept",
@@ -294,18 +2507,29 @@
           {
             "key": "user-agent",
             "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36"
+          },
+          {
+            "key": "Cookie",
+            "value": "kndctr_227AC2D754DCAB340A4C98C6_AdobeOrg_consent=general=in; kndctr_227AC2D754DCAB340A4C98C6_AdobeOrg_identity=CiY0MzIyOTY1MjMyMTY3MzA0MjE4MDA5Nzg0NDY3MzI0MTk4MjQxOVIRCOHUgo2YNBgBKgRJTkQxMAGgAe3Ugo2YNLABrizwAeHUgo2YNA==; AMCV_227AC2D754DCAB340A4C98C6%40AdobeOrg=MCMID|43229652321673042180097844673241982419; mbox=session#43229652321673042180097844673241982419-Cklvxx#1793254912|PC#96db46561aba4948a85fb32089211048.41_0#1856347382; workspaces-ws-4dguy_WSR_SESSIONID=KFnNbMkPU9qJpuiGYziLRZMYHI4ejNThfidfsTVxUcF5Q3yCuUNExumieDRJrQnVVHQ1XrdfMtO1/qJgGrDVAA=="
           }
         ],
         "url": {
-          "raw": "{{baseUrl}}/odata/v4/employee/Departments",
+          "raw": "https://port4004-workspaces-ws-4dguy.ap21.trial.applicationstudio.cloud.sap/odata/v4/employee/Employees/fbd24f67-b6d0-43d0-b5bb-eead5db3db2d",
+          "protocol": "https",
           "host": [
-            "{{baseUrl}}"
+            "port4004-workspaces-ws-4dguy",
+            "ap21",
+            "trial",
+            "applicationstudio",
+            "cloud",
+            "sap"
           ],
           "path": [
             "odata",
             "v4",
             "employee",
-            "Departments"
+            "Employees",
+            "fbd24f67-b6d0-43d0-b5bb-eead5db3db2d"
           ]
         },
         "description": "Generated from cURL: curl --url 'https://port4004-workspaces-ws-4dguy.ap21.trial.applicationstudio.cloud.sap/odata/v4/employee/Departments' \\\n  -H 'accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/jxl,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7' \\\n  -H 'accept-language: en-US,en-IN;q=0.9,en;q=0.8,hi-IN;q=0.7,hi;q=0.6' \\\n  -H 'cache-control: max-age=0' \\\n  -b 'kndctr_227AC2D754DCAB340A4C98C6_AdobeOrg_consent=general=in; kndctr_227AC2D754DCAB340A4C98C6_AdobeOrg_identity=CiY0MzIyOTY1MjMyMTY3MzA0MjE4MDA5Nzg0NDY3MzI0MTk4MjQxOVIRCOHUgo2YNBgBKgRJTkQxMAGgAe3Ugo2YNLABrizwAeHUgo2YNA==; AMCV_227AC2D754DCAB340A4C98C6%40AdobeOrg=MCMID|43229652321673042180097844673241982419; mbox=session#43229652321673042180097844673241982419-Cklvxx#1793254912|PC#96db46561aba4948a85fb32089211048.41_0#1856347382; workspaces-ws-4dguy_WSR_SESSIONID=KFnNbMkPU9qJpuiGYziLRZMYHI4ejNThfidfsTVxUcF5Q3yCuUNExumieDRJrQnVVHQ1XrdfMtO1/qJgGrDVAA==' \\\n  -H 'priority: u=0, i' \\\n  -H 'sec-ch-ua: \"Not:A-Brand\";v=\"8\", \"Chromium\";v=\"156\", \"Google Chrome\";v=\"156\"' \\\n  -H 'sec-ch-ua-mobile: ?0' \\\n  -H 'sec-ch-ua-platform: \"macOS\"' \\\n  -H 'sec-fetch-dest: document' \\\n  -H 'sec-fetch-mode: navigate' \\\n  -H 'sec-fetch-site: none' \\\n  -H 'sec-fetch-user: ?1' \\\n  -H 'upgrade-insecure-requests: 1' \\\n  -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36'"
@@ -368,6 +2592,10 @@
           {
             "key": "user-agent",
             "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36"
+          },
+          {
+            "key": "Cookie",
+            "value": "kndctr_227AC2D754DCAB340A4C98C6_AdobeOrg_consent=general=in; kndctr_227AC2D754DCAB340A4C98C6_AdobeOrg_identity=CiY0MzIyOTY1MjMyMTY3MzA0MjE4MDA5Nzg0NDY3MzI0MTk4MjQxOVIRCOHUgo2YNBgBKgRJTkQxMAGgAe3Ugo2YNLABrizwAeHUgo2YNA==; AMCV_227AC2D754DCAB340A4C98C6%40AdobeOrg=MCMID|43229652321673042180097844673241982419; mbox=session#43229652321673042180097844673241982419-Cklvxx#1793254912|PC#96db46561aba4948a85fb32089211048.41_0#1856347382; workspaces-ws-4dguy_WSR_SESSIONID=KFnNbMkPU9qJpuiGYziLRZMYHI4ejNThfidfsTVxUcF5Q3yCuUNExumieDRJrQnVVHQ1XrdfMtO1/qJgGrDVAA=="
           }
         ],
         "body": {
@@ -461,6 +2689,10 @@
           {
             "key": "user-agent",
             "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36"
+          },
+          {
+            "key": "Cookie",
+            "value": "kndctr_227AC2D754DCAB340A4C98C6_AdobeOrg_consent=general=in; kndctr_227AC2D754DCAB340A4C98C6_AdobeOrg_identity=CiY0MzIyOTY1MjMyMTY3MzA0MjE4MDA5Nzg0NDY3MzI0MTk4MjQxOVIRCOHUgo2YNBgBKgRJTkQxMAGgAe3Ugo2YNLABrizwAeHUgo2YNA==; AMCV_227AC2D754DCAB340A4C98C6%40AdobeOrg=MCMID|43229652321673042180097844673241982419; mbox=session#43229652321673042180097844673241982419-Cklvxx#1793254912|PC#96db46561aba4948a85fb32089211048.41_0#1856347382; workspaces-ws-4dguy_WSR_SESSIONID=KFnNbMkPU9qJpuiGYziLRZMYHI4ejNThfidfsTVxUcF5Q3yCuUNExumieDRJrQnVVHQ1XrdfMtO1/qJgGrDVAA=="
           }
         ],
         "body": {
@@ -551,6 +2783,10 @@
           {
             "key": "user-agent",
             "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36"
+          },
+          {
+            "key": "Cookie",
+            "value": "kndctr_227AC2D754DCAB340A4C98C6_AdobeOrg_consent=general=in; kndctr_227AC2D754DCAB340A4C98C6_AdobeOrg_identity=CiY0MzIyOTY1MjMyMTY3MzA0MjE4MDA5Nzg0NDY3MzI0MTk4MjQxOVIRCOHUgo2YNBgBKgRJTkQxMAGgAe3Ugo2YNLABrizwAeHUgo2YNA==; AMCV_227AC2D754DCAB340A4C98C6%40AdobeOrg=MCMID|43229652321673042180097844673241982419; mbox=session#43229652321673042180097844673241982419-Cklvxx#1793254912|PC#96db46561aba4948a85fb32089211048.41_0#1856347382; workspaces-ws-4dguy_WSR_SESSIONID=KFnNbMkPU9qJpuiGYziLRZMYHI4ejNThfidfsTVxUcF5Q3yCuUNExumieDRJrQnVVHQ1XrdfMtO1/qJgGrDVAA=="
           }
         ],
         "body": {
@@ -640,6 +2876,10 @@
           {
             "key": "user-agent",
             "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36"
+          },
+          {
+            "key": "Cookie",
+            "value": "kndctr_227AC2D754DCAB340A4C98C6_AdobeOrg_consent=general=in; kndctr_227AC2D754DCAB340A4C98C6_AdobeOrg_identity=CiY0MzIyOTY1MjMyMTY3MzA0MjE4MDA5Nzg0NDY3MzI0MTk4MjQxOVIRCOHUgo2YNBgBKgRJTkQxMAGgAe3Ugo2YNLABrizwAeHUgo2YNA==; AMCV_227AC2D754DCAB340A4C98C6%40AdobeOrg=MCMID|43229652321673042180097844673241982419; mbox=session#43229652321673042180097844673241982419-Cklvxx#1793254912|PC#96db46561aba4948a85fb32089211048.41_0#1856347382; workspaces-ws-4dguy_WSR_SESSIONID=KFnNbMkPU9qJpuiGYziLRZMYHI4ejNThfidfsTVxUcF5Q3yCuUNExumieDRJrQnVVHQ1XrdfMtO1/qJgGrDVAA=="
           }
         ],
         "body": {
@@ -729,11 +2969,15 @@
           {
             "key": "user-agent",
             "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36"
+          },
+          {
+            "key": "Cookie",
+            "value": "kndctr_227AC2D754DCAB340A4C98C6_AdobeOrg_consent=general=in; kndctr_227AC2D754DCAB340A4C98C6_AdobeOrg_identity=CiY0MzIyOTY1MjMyMTY3MzA0MjE4MDA5Nzg0NDY3MzI0MTk4MjQxOVIRCOHUgo2YNBgBKgRJTkQxMAGgAe3Ugo2YNLABrizwAeHUgo2YNA==; AMCV_227AC2D754DCAB340A4C98C6%40AdobeOrg=MCMID|43229652321673042180097844673241982419; mbox=session#43229652321673042180097844673241982419-Cklvxx#1793254912|PC#96db46561aba4948a85fb32089211048.41_0#1856347382; workspaces-ws-4dguy_WSR_SESSIONID=KFnNbMkPU9qJpuiGYziLRZMYHI4ejNThfidfsTVxUcF5Q3yCuUNExumieDRJrQnVVHQ1XrdfMtO1/qJgGrDVAA=="
           }
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"employeeCode\": \"EMP002\",\n  \"firstName\": \"Aarav\",\n  \"lastName\": \"Sharma\",\n  \"email\": \"aarav.sharma@example.org\",\n  \"phone\": \"9876543210\",\n  \"dateOfJoining\": \"2026-11-04\",\n  \"department_ID\": \"fa4ee572-716c-4c46-9b75-81f9378738e6\"\n}",
+          "raw": "{\n  \"employeeCode\": \"EMP003\",\n  \"firstName\": \"Riya\",\n  \"lastName\": \"Mehta\",\n  \"email\": \"not-an-email\",\n  \"phone\": \"9876543211\",\n  \"dateOfJoining\": \"2026-11-04\",\n  \"department_ID\": \"fa4ee572-716c-4c46-9b75-81f9378738e6\"\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -759,6 +3003,17 @@
           ]
         },
         "description": "Generated from cURL: curl --url 'https://port4004-workspaces-ws-4dguy.ap21.trial.applicationstudio.cloud.sap/odata/v4/employee/Departments' \\\n  -H 'accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/jxl,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7' \\\n  -H 'accept-language: en-US,en-IN;q=0.9,en;q=0.8,hi-IN;q=0.7,hi;q=0.6' \\\n  -H 'cache-control: max-age=0' \\\n  -b 'kndctr_227AC2D754DCAB340A4C98C6_AdobeOrg_consent=general=in; kndctr_227AC2D754DCAB340A4C98C6_AdobeOrg_identity=CiY0MzIyOTY1MjMyMTY3MzA0MjE4MDA5Nzg0NDY3MzI0MTk4MjQxOVIRCOHUgo2YNBgBKgRJTkQxMAGgAe3Ugo2YNLABrizwAeHUgo2YNA==; AMCV_227AC2D754DCAB340A4C98C6%40AdobeOrg=MCMID|43229652321673042180097844673241982419; mbox=session#43229652321673042180097844673241982419-Cklvxx#1793254912|PC#96db46561aba4948a85fb32089211048.41_0#1856347382; workspaces-ws-4dguy_WSR_SESSIONID=KFnNbMkPU9qJpuiGYziLRZMYHI4ejNThfidfsTVxUcF5Q3yCuUNExumieDRJrQnVVHQ1XrdfMtO1/qJgGrDVAA==' \\\n  -H 'priority: u=0, i' \\\n  -H 'sec-ch-ua: \"Not:A-Brand\";v=\"8\", \"Chromium\";v=\"156\", \"Google Chrome\";v=\"156\"' \\\n  -H 'sec-ch-ua-mobile: ?0' \\\n  -H 'sec-ch-ua-platform: \"macOS\"' \\\n  -H 'sec-fetch-dest: document' \\\n  -H 'sec-fetch-mode: navigate' \\\n  -H 'sec-fetch-site: none' \\\n  -H 'sec-fetch-user: ?1' \\\n  -H 'upgrade-insecure-requests: 1' \\\n  -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36'"
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
       },
       "response": []
     }

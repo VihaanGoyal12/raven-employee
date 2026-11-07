@@ -12,7 +12,8 @@
     "@sap/cds-dk": "^10"
   },
   "scripts": {
-    "start": "cds-serve"
+    "start": "cds-serve",
+    "test": "node test/run_suite.mjs"
   },
   "private": true,
   "cds": {
