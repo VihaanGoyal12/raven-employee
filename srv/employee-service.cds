@@ -10,9 +10,9 @@ service EmployeeService {
     entity Employees as projection on hr.Employees {
         *,
         firstName || ' ' || lastName as fullName : String(81),
-        case status
-            when 'Active'   then 3
-            when 'On Leave' then 2
+        case
+            when status = 'Active'   then 3
+            when status = 'On Leave' then 2
             else 0
         end as statusCriticality : Integer
     };
