@@ -2,6 +2,7 @@ _schema-version: 3.3.0
 ID: raven-employee-directory
 description: A simple CAP project.
 version: 1.0.0
+
 modules:
 - name: raven-employee-directory-srv
   type: nodejs
@@ -18,6 +19,7 @@ modules:
     instances: 1
   build-parameters:
     builder: npm-ci
+
 - name: raven-employee-directory-db-deployer
   type: hdb
   path: gen/db
@@ -25,6 +27,7 @@ modules:
   - name: raven-employee-directory-db
   parameters:
     buildpack: nodejs_buildpack
+
 - name: raven-employee-directory-app-content
   type: com.sap.application.content
   path: .
@@ -39,6 +42,7 @@ modules:
       - ravenemployeedirectoryemployees.zip
       name: ravenemployeedirectoryemployees
       target-path: resources/
+
 - name: ravenemployeedirectoryemployees
   type: html5
   path: app/employees
@@ -49,6 +53,7 @@ modules:
     - npm install
     - npm run build:cf
     supported-platforms: []
+
 - name: raven-employee-directory-router
   type: approuter.nodejs
   path: app/router
@@ -61,13 +66,16 @@ modules:
     properties:
       name: srv-api
       url: ~{srv-url}
-      forwardAuthToken: false
+      forwardAuthToken: true
+  - name: raven-employee-directory-auth
+
 resources:
 - name: raven-employee-directory-db
   type: com.sap.xs.hdi-container
   parameters:
     service: hana
     service-plan: hdi-shared
+
 - name: raven-employee-directory-auth
   type: org.cloudfoundry.managed-service
   parameters:
@@ -97,12 +105,14 @@ resources:
       xsappname: raven-employee-directory-f1de4b2dtrial-dev
     service: xsuaa
     service-plan: application
+
 - name: raven-employee-directory-repo-host
   type: org.cloudfoundry.managed-service
   parameters:
     service: html5-apps-repo
     service-name: raven-employee-directory-html5-service
     service-plan: app-host
+
 - name: raven-employee-directory-destination-service
   type: org.cloudfoundry.managed-service
   parameters:
@@ -121,9 +131,11 @@ resources:
     service: destination
     service-name: raven-employee-directory-destination-service
     service-plan: lite
+
 parameters:
   deploy_mode: html5-repo
   enable-parallel-deployments: true
+
 build-parameters:
   before-all:
   - builder: custom

@@ -1,12 +1,12 @@
 {
   "welcomeFile": "/employees/webapp/index.html",
-  "authenticationMethod": "none",
+  "authenticationMethod": "route",
   "routes": [
     {
       "source": "^/odata/(.*)$",
       "target": "/odata/$1",
       "destination": "srv-api",
-      "authenticationType": "none",
+      "authenticationType": "xsuaa",
       "csrfProtection": false
     },
     {
@@ -17,4 +17,3 @@
     }
   ]
 }
-
