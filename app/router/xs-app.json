@@ -1,5 +1,5 @@
 {
-  "welcomeFile": "/employees/webapp/index.html",
+  "welcomeFile": "/employees/index.html",
   "authenticationMethod": "route",
   "routes": [
     {
@@ -10,10 +10,22 @@
       "csrfProtection": false
     },
     {
-      "source": "^/employees/(.*)$",
+      "source": "^/resources/(.*)$",
+      "target": "/resources/$1",
+      "authenticationType": "none",
+      "destination": "ui5"
+    },
+    {
+      "source": "^/test-resources/(.*)$",
+      "target": "/test-resources/$1",
+      "authenticationType": "none",
+      "destination": "ui5"
+    },
+    {
+      "source": "^(.*)$",
       "target": "$1",
-      "localDir": "resources/employees",
-      "authenticationType": "none"
+      "service": "html5-apps-repo-rt",
+      "authenticationType": "xsuaa"
     }
   ]
 }
