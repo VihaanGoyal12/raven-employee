@@ -1,77 +1,119 @@
-
 _schema-version: 3.3.0
 ID: raven-employee-directory
+description: A simple CAP project.
 version: 1.0.0
-description: "A simple CAP project."
-
+modules:
+- name: raven-employee-directory-srv
+  type: nodejs
+  path: gen/srv
+  requires:
+  - name: raven-employee-directory-db
+  - name: raven-employee-directory-auth
+  provides:
+  - name: srv-api
+    properties:
+      srv-url: ${default-url}
+  parameters:
+    buildpack: nodejs_buildpack
+    instances: 1
+  build-parameters:
+    builder: npm-ci
+- name: raven-employee-directory-db-deployer
+  type: hdb
+  path: gen/db
+  requires:
+  - name: raven-employee-directory-db
+  parameters:
+    buildpack: nodejs_buildpack
+- name: raven-employee-directory-app-content
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: raven-employee-directory-repo-host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - ravenemployeedirectoryemployees.zip
+      name: ravenemployeedirectoryemployees
+      target-path: resources/
+- name: ravenemployeedirectoryemployees
+  type: html5
+  path: app/employees
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+resources:
+- name: raven-employee-directory-db
+  type: com.sap.xs.hdi-container
+  parameters:
+    service: hana
+    service-plan: hdi-shared
+- name: raven-employee-directory-auth
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      oauth2-configuration:
+        redirect-uris:
+        - https://oauth.pstmn.io/v1/callback
+      role-templates:
+      - name: SalesUserRole
+        scope-references:
+        - $XSAPPNAME.SalesUser
+      - name: SalesManagerRole
+        scope-references:
+        - $XSAPPNAME.SalesUser
+        - $XSAPPNAME.SalesManager
+      - name: FulfillmentManagerRole
+        scope-references:
+        - $XSAPPNAME.FulfillmentManager
+      scopes:
+      - description: Create/view sales orders
+        name: $XSAPPNAME.SalesUser
+      - description: Approve sales orders
+        name: $XSAPPNAME.SalesManager
+      - description: Reserve stock and dispatch orders
+        name: $XSAPPNAME.FulfillmentManager
+      tenant-mode: dedicated
+      xsappname: raven-employee-directory-f1de4b2dtrial-dev
+    service: xsuaa
+    service-plan: application
+- name: raven-employee-directory-repo-host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: raven-employee-directory-html5-service
+    service-plan: app-host
+- name: raven-employee-directory-destination-service
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: false
+      init_data:
+        instance:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          existing_destinations_policy: update
+      version: 1.0.0
+    service: destination
+    service-name: raven-employee-directory-destination-service
+    service-plan: lite
 parameters:
+  deploy_mode: html5-repo
   enable-parallel-deployments: true
-
 build-parameters:
   before-all:
-    - builder: custom
-      commands:
-        - npm ci
-        - npx cds build --production
-
-modules:
-  - name: raven-employee-directory-srv
-    type: nodejs
-    path: gen/srv
-    parameters:
-      instances: 1
-      buildpack: nodejs_buildpack
-    build-parameters:
-      builder: npm-ci
-    provides:
-      - name: srv-api
-        properties:
-          srv-url: ${default-url}
-    requires:
-      - name: raven-employee-directory-db
-      - name: raven-employee-directory-auth
-
-  - name: raven-employee-directory-db-deployer
-    type: hdb
-    path: gen/db
-    parameters:
-      buildpack: nodejs_buildpack
-    requires:
-      - name: raven-employee-directory-db
-
-resources:
-  - name: raven-employee-directory-db
-    type: com.sap.xs.hdi-container
-    parameters:
-      service: hana
-      service-plan: hdi-shared
-
-  - name: raven-employee-directory-auth
-    type: org.cloudfoundry.managed-service
-    parameters:
-      service: xsuaa
-      service-plan: application
-      config:
-        xsappname: raven-employee-directory-f1de4b2dtrial-dev
-        tenant-mode: dedicated
-        oauth2-configuration:
-          redirect-uris:
-            - https://oauth.pstmn.io/v1/callback
-        scopes:
-          - name: $XSAPPNAME.SalesUser
-            description: Create/view sales orders
-          - name: $XSAPPNAME.SalesManager
-            description: Approve sales orders
-          - name: $XSAPPNAME.FulfillmentManager
-            description: Reserve stock and dispatch orders
-        role-templates:
-          - name: SalesUserRole
-            scope-references:
-              - $XSAPPNAME.SalesUser
-          - name: SalesManagerRole
-            scope-references:
-              - $XSAPPNAME.SalesUser
-              - $XSAPPNAME.SalesManager
-          - name: FulfillmentManagerRole
-            scope-references:
-              - $XSAPPNAME.FulfillmentManager
+  - builder: custom
+    commands:
+    - npm ci
+    - npx cds build --production
