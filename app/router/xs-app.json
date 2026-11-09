@@ -1,5 +1,5 @@
 {
-  "welcomeFile": "/employees/index.html",
+  "welcomeFile": "/ravenemployeedirectoryemployees/index.html",
   "authenticationMethod": "route",
   "routes": [
     {

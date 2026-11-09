@@ -69,14 +69,8 @@ modules:
       forwardAuthToken: true
   - name: raven-employee-directory-auth
   - name: raven-employee-directory-repo-host
-    parameters:
-      service-key:
-        name: raven-employee-directory-repo-host-key
-  - name: raven-employee-directory-destination-service
-    parameters:
-      service-key:
-        name: raven-employee-directory-destination-service-key
   - name: raven-employee-html5-runtime
+  - name: raven-employee-directory-destination-service
 
 resources:
 - name: raven-employee-directory-db
@@ -141,19 +135,11 @@ resources:
             ProxyType: Internet
             Type: HTTP
             URL: https://ui5.sap.com
-          - Authentication: NoAuthentication
-            Name: srv-api
-            ProxyType: Internet
-            Type: HTTP
-            URL: ~{srv-api/srv-url}
-            HTML5.ForwardAuthToken: true
           existing_destinations_policy: update
       version: 1.0.0
     service: destination
     service-name: raven-employee-directory-destination-service
     service-plan: lite
-  requires:
-  - name: srv-api
 
 parameters:
   deploy_mode: html5-repo
