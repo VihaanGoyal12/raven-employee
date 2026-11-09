@@ -23,6 +23,9 @@
   },
   "private": true,
   "cds": {
+    "fiori": {
+      "bypass_draft": true
+    },
     "requires": {
       "db": {
         "kind": "sqlite",

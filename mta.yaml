@@ -49,6 +49,19 @@ modules:
     - npm install
     - npm run build:cf
     supported-platforms: []
+- name: raven-employee-directory-router
+  type: approuter.nodejs
+  path: app/router
+  parameters:
+    disk-quota: 512M
+    memory: 256M
+  requires:
+  - name: srv-api
+    group: destinations
+    properties:
+      name: srv-api
+      url: ~{srv-url}
+      forwardAuthToken: false
 resources:
 - name: raven-employee-directory-db
   type: com.sap.xs.hdi-container
@@ -117,3 +130,5 @@ build-parameters:
     commands:
     - npm ci
     - npx cds build --production
+    - mkdir -p app/router/resources/employees
+    - cp -r app/employees/webapp app/router/resources/employees/

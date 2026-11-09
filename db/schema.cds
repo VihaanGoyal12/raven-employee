@@ -20,3 +20,19 @@ entity Employees {
 
     status            : String(20) default 'Active';
 }
+
+entity EmployeeStatuses {
+    key code : String(20);
+}
+
+annotate Employees with {
+    employeeCode  @title: 'Employee Code';
+    firstName     @title: 'First Name';
+    lastName      @title: 'Last Name';
+    email         @title: 'Email';
+    phone         @title: 'Phone';
+    dateOfJoining @title: 'Date of Joining';
+    department    @title: 'Department';
+    status        @title: 'Status';
+};
+

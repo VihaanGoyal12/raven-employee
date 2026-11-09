@@ -9,23 +9,25 @@ export default cds.service.impl(async function () {
         const { email, employeeCode } = req.data;
 
         if (!email || !EMAIL_RE.test(email)) {
-            return req.error(
+            req.error(
                 400,
                 `'${email}' is not a valid email address`,
                 'email'
             );
         }
 
-        const duplicate = await SELECT.one
-            .from(Employees)
-            .where({ employeeCode });
+        if (employeeCode) {
+            const duplicate = await SELECT.one
+                .from(Employees)
+                .where({ employeeCode });
 
-        if (duplicate) {
-            return req.error(
-                409,
-                `employeeCode '${employeeCode}' already exists`,
-                'employeeCode'
-            );
+            if (duplicate) {
+                req.error(
+                    409,
+                    `employeeCode '${employeeCode}' already exists`,
+                    'employeeCode'
+                );
+            }
         }
     });
 });

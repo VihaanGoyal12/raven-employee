@@ -1,101 +1,103 @@
 using EmployeeService as service from '../../srv/employee-service';
+
 annotate service.Employees with @(
-    UI.FieldGroup #GeneratedGroup : {
-        $Type : 'UI.FieldGroupType',
-        Data : [
-            {
-                $Type : 'UI.DataField',
-                Label : 'employeeCode',
-                Value : employeeCode,
-            },
-            {
-                $Type : 'UI.DataField',
-                Label : 'firstName',
-                Value : firstName,
-            },
-            {
-                $Type : 'UI.DataField',
-                Label : 'lastName',
-                Value : lastName,
-            },
-            {
-                $Type : 'UI.DataField',
-                Label : 'email',
-                Value : email,
-            },
-            {
-                $Type : 'UI.DataField',
-                Label : 'phone',
-                Value : phone,
-            },
-            {
-                $Type : 'UI.DataField',
-                Label : 'dateOfJoining',
-                Value : dateOfJoining,
-            },
-            {
-                $Type : 'UI.DataField',
-                Label : 'status',
-                Value : status,
-            },
-        ],
+    UI.HeaderInfo: {
+        TypeName       : 'Employee',
+        TypeNamePlural : 'Employees',
+        Title          : { Value: fullName },
+        Description    : { Value: employeeCode }
     },
-    UI.Facets : [
-        {
-            $Type : 'UI.ReferenceFacet',
-            ID : 'GeneratedFacet1',
-            Label : 'General Information',
-            Target : '@UI.FieldGroup#GeneratedGroup',
-        },
+    UI.SelectionFields: [
+        department_ID,
+        status,
+        dateOfJoining
     ],
-    UI.LineItem : [
-        {
-            $Type : 'UI.DataField',
-            Label : 'employeeCode',
-            Value : employeeCode,
-        },
-        {
-            $Type : 'UI.DataField',
-            Label : 'firstName',
-            Value : firstName,
-        },
-        {
-            $Type : 'UI.DataField',
-            Label : 'lastName',
-            Value : lastName,
-        },
-        {
-            $Type : 'UI.DataField',
-            Label : 'email',
-            Value : email,
-        },
-        {
-            $Type : 'UI.DataField',
-            Label : 'phone',
-            Value : phone,
-        },
+    UI.LineItem: [
+        { Value: employeeCode },
+        { Value: fullName, Label: 'Name' },
+        { Value: email },
+        { Value: department_ID },
+        { Value: dateOfJoining },
+        { Value: status, Criticality: statusCriticality }
     ],
+    UI.HeaderFacets: [
+        { $Type: 'UI.ReferenceFacet', Target: '@UI.FieldGroup#Header' }
+    ],
+    UI.FieldGroup #Header : {
+        Data: [
+            { Value: department_ID },
+            { Value: status, Criticality: statusCriticality },
+            { Value: dateOfJoining },
+            { Value: department.costCenter, Label: 'Cost Center' }
+        ]
+    },
+    UI.FieldGroup #General : {
+        Data: [
+            { Value: employeeCode },
+            { Value: firstName },
+            { Value: lastName },
+            { Value: department_ID },
+            { Value: dateOfJoining },
+            { Value: status, Criticality: statusCriticality }
+        ]
+    },
+    UI.FieldGroup #Contact : {
+        Data: [
+            { Value: email },
+            { Value: phone }
+        ]
+    },
+    UI.Facets: [
+        {
+            $Type  : 'UI.ReferenceFacet',
+            ID     : 'General',
+            Label  : 'General Information',
+            Target : '@UI.FieldGroup#General'
+        },
+        {
+            $Type  : 'UI.ReferenceFacet',
+            ID     : 'Contact',
+            Label  : 'Contact',
+            Target : '@UI.FieldGroup#Contact'
+        }
+    ]
 );
 
 annotate service.Employees with {
-    department @Common.ValueList : {
-        $Type : 'Common.ValueListType',
-        CollectionPath : 'Departments',
-        Parameters : [
-            {
-                $Type : 'Common.ValueListParameterInOut',
-                LocalDataProperty : department_ID,
-                ValueListProperty : 'ID',
-            },
-            {
-                $Type : 'Common.ValueListParameterDisplayOnly',
-                ValueListProperty : 'name',
-            },
-            {
-                $Type : 'Common.ValueListParameterDisplayOnly',
-                ValueListProperty : 'costCenter',
-            },
-        ],
-    }
+    department @(
+        Common.Text            : department.name,
+        Common.TextArrangement : #TextOnly,
+        Common.ValueList       : {
+            CollectionPath : 'Departments',
+            Parameters     : [
+                {
+                    $Type             : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : department_ID,
+                    ValueListProperty : 'ID'
+                },
+                {
+                    $Type             : 'Common.ValueListParameterDisplayOnly',
+                    ValueListProperty : 'name'
+                },
+                {
+                    $Type             : 'Common.ValueListParameterDisplayOnly',
+                    ValueListProperty : 'costCenter'
+                }
+            ]
+        }
+    );
+    status @(
+        Common.ValueListWithFixedValues : true,
+        Common.ValueList               : {
+            CollectionPath : 'EmployeeStatuses',
+            Parameters     : [
+                {
+                    $Type             : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : status,
+                    ValueListProperty : 'code'
+                }
+            ]
+        }
+    );
+    statusCriticality @UI.Hidden;
 };
-
