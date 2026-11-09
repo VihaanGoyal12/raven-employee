@@ -66,11 +66,7 @@ modules:
     properties:
       name: srv-api
       url: ~{srv-url}
-      forwardAuthToken: true
-  - name: raven-employee-directory-auth
-  - name: raven-employee-directory-repo-host
-  - name: raven-employee-html5-runtime
-  - name: raven-employee-directory-destination-service
+      forwardAuthToken: false
 
 resources:
 - name: raven-employee-directory-db
@@ -116,12 +112,6 @@ resources:
     service-name: raven-employee-directory-html5-service
     service-plan: app-host
 
-- name: raven-employee-html5-runtime
-  type: org.cloudfoundry.managed-service
-  parameters:
-    service: html5-apps-repo
-    service-plan: app-runtime
-
 - name: raven-employee-directory-destination-service
   type: org.cloudfoundry.managed-service
   parameters:
@@ -151,3 +141,6 @@ build-parameters:
     commands:
     - npm ci
     - npx cds build --production
+    - rm -rf app/router/resources
+    - mkdir -p app/router/resources/employees
+    - cp -r app/employees/webapp app/router/resources/employees/

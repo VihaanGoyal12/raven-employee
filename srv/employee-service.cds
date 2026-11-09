@@ -1,7 +1,7 @@
-
 using raven.hr as hr from '../db/schema';
 
 @path: 'employee'
+@requires: 'any'
 service EmployeeService {
     entity Departments      as projection on hr.Departments;
     entity EmployeeStatuses as projection on hr.EmployeeStatuses;
@@ -17,4 +17,3 @@ service EmployeeService {
         end as statusCriticality : Integer
     };
 }
-
