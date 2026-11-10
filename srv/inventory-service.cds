@@ -1,5 +1,7 @@
 using raven.inventory as inv from '../db/inventory-schema';
 
+@path: 'inventory'
+@requires: 'any'
 service InventoryService {
 
     entity Warehouses as projection on inv.Warehouses;

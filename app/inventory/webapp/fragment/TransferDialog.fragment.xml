@@ -1,0 +1,101 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form">
+    <Dialog
+        id="transferDialog"
+        title="{i18n>transferTitle}"
+        contentWidth="32rem"
+        initialFocus="selFrom">
+        <form:SimpleForm
+            editable="true"
+            layout="ResponsiveGridLayout"
+            labelSpanXL="4"
+            labelSpanL="4"
+            labelSpanM="4"
+            labelSpanS="12"
+            adjustLabelSpan="false"
+            emptySpanXL="0"
+            emptySpanL="0"
+            emptySpanM="0"
+            emptySpanS="0"
+            columnsXL="1"
+            columnsL="1"
+            columnsM="1"
+            singleContainerFullSize="false">
+
+            <Label text="{i18n>fromWarehouse}" required="true"/>
+            <Select
+                id="selFrom"
+                width="100%"
+                forceSelection="false"
+                selectedKey="{view>/transfer/from}"
+                change=".onSourceOrProductChange"
+                items="{ path: '/Warehouses', sorter: { path: 'name' } }">
+                <core:Item key="{ID}" text="{name} ({location})"/>
+            </Select>
+
+            <Label text="{i18n>product}" required="true"/>
+            <Select
+                id="selProduct"
+                width="100%"
+                forceSelection="false"
+                selectedKey="{view>/transfer/product}"
+                change=".onSourceOrProductChange"
+                items="{ path: '/Products', sorter: { path: 'name' } }">
+                <core:Item key="{ID}" text="{name} ({sku})"/>
+            </Select>
+
+            <Label text=""/>
+            <VBox class="sapUiTinyMarginTopBottom">
+                <MessageStrip
+                    id="msgAvailability"
+                    type="Information"
+                    showIcon="true"
+                    visible="{= ${view>/transfer/available} !== null &amp;&amp; ${view>/transfer/available} !== undefined }"
+                    text="{= ${i18n>availableAtSource} + ' ' + ${view>/transfer/available} + ' ' + ${i18n>units} }"/>
+                <MessageStrip
+                    id="msgSameWarehouse"
+                    type="Error"
+                    showIcon="true"
+                    class="sapUiTinyMarginTop"
+                    visible="{= !!${view>/transfer/from} &amp;&amp; !!${view>/transfer/to} &amp;&amp; ${view>/transfer/from} === ${view>/transfer/to} }"
+                    text="{i18n>errSameWarehouse}"/>
+            </VBox>
+
+            <Label text="{i18n>toWarehouse}" required="true"/>
+            <Select
+                id="selTo"
+                width="100%"
+                forceSelection="false"
+                selectedKey="{view>/transfer/to}"
+                items="{ path: '/Warehouses', sorter: { path: 'name' } }">
+                <core:Item key="{ID}" text="{name} ({location})"/>
+            </Select>
+
+            <Label text="{i18n>quantity}" required="true"/>
+            <StepInput
+                id="inpQty"
+                width="100%"
+                min="1"
+                value="{view>/transfer/quantity}"/>
+        </form:SimpleForm>
+
+        <beginButton>
+            <Button
+                id="btnDoTransfer"
+                type="Emphasized"
+                text="{i18n>transfer}"
+                press=".onConfirmTransfer"
+                enabled="{= !!${view>/transfer/from} &amp;&amp; !!${view>/transfer/product} &amp;&amp; !!${view>/transfer/to} &amp;&amp; ${view>/transfer/from} !== ${view>/transfer/to} &amp;&amp; ${view>/transfer/quantity} > 0 }"/>
+        </beginButton>
+
+        <endButton>
+            <Button
+                id="btnCancel"
+                text="{i18n>cancel}"
+                press=".onCancelTransfer"/>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>
+

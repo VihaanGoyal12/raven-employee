@@ -1,0 +1,225 @@
+<mvc:View
+    controllerName="raven.inventory.controller.Overview"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:core="sap.ui.core"
+    height="100%">
+
+    <f:DynamicPage id="page" fitContent="true" headerExpanded="true">
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <VBox>
+                        <Title id="pageTitle" text="{i18n>overviewTitle}" level="H2"/>
+                        <Text id="pageSubtitle" text="{i18n>overviewSubtitle}" class="sapUiTinyMarginTop"/>
+                    </VBox>
+                </f:heading>
+                <f:actions>
+                    <Button
+                        id="btnTransfer"
+                        text="{i18n>transferStock}"
+                        type="Emphasized"
+                        icon="sap-icon://journey-change"
+                        press=".onOpenTransfer"/>
+                    <Button
+                        id="btnCheckAvail"
+                        text="{i18n>checkAvailability}"
+                        icon="sap-icon://inventory"
+                        press=".onOpenCheckAvailability"/>
+                    <Button
+                        id="btnRefresh"
+                        icon="sap-icon://refresh"
+                        tooltip="{i18n>refresh}"
+                        press=".onRefresh"/>
+                </f:actions>
+            </f:DynamicPageTitle>
+        </f:title>
+
+        <f:header>
+            <f:DynamicPageHeader pinnable="true">
+                <HBox wrap="Wrap" class="sapUiTinyMarginBottom">
+                    <GenericTile
+                        id="tileWarehouses"
+                        header="{i18n>kpiWarehouses}"
+                        frameType="OneByHalf"
+                        class="sapUiSmallMarginEnd sapUiTinyMarginBottom">
+                        <TileContent>
+                            <NumericContent
+                                value="{view>/kpi/warehouses}"
+                                icon="sap-icon://factory"
+                                withMargin="false"
+                                valueColor="Neutral"/>
+                        </TileContent>
+                    </GenericTile>
+
+                    <GenericTile
+                        id="tileProducts"
+                        header="{i18n>kpiProducts}"
+                        frameType="OneByHalf"
+                        class="sapUiSmallMarginEnd sapUiTinyMarginBottom">
+                        <TileContent>
+                            <NumericContent
+                                value="{view>/kpi/products}"
+                                icon="sap-icon://product"
+                                withMargin="false"
+                                valueColor="Neutral"/>
+                        </TileContent>
+                    </GenericTile>
+
+                    <GenericTile
+                        id="tileTotalUnits"
+                        header="{i18n>kpiTotalUnits}"
+                        frameType="OneByHalf"
+                        class="sapUiSmallMarginEnd sapUiTinyMarginBottom">
+                        <TileContent>
+                            <NumericContent
+                                value="{view>/kpi/totalUnits}"
+                                icon="sap-icon://number-sign"
+                                withMargin="false"
+                                valueColor="Good"/>
+                        </TileContent>
+                    </GenericTile>
+
+                    <GenericTile
+                        id="tileLowStock"
+                        header="{i18n>kpiLowStock}"
+                        subheader="{i18n>kpiLowStockSub}"
+                        frameType="OneByHalf"
+                        class="sapUiSmallMarginEnd sapUiTinyMarginBottom">
+                        <TileContent>
+                            <NumericContent
+                                value="{view>/kpi/lowStock}"
+                                icon="sap-icon://alert"
+                                withMargin="false"
+                                valueColor="Critical"/>
+                        </TileContent>
+                    </GenericTile>
+                </HBox>
+            </f:DynamicPageHeader>
+        </f:header>
+
+        <f:content>
+            <IconTabBar id="tabs" expandable="false" applyContentPadding="false">
+                <items>
+                    <!-- Tab 1: Stock Summary -->
+                    <IconTabFilter
+                        id="tabSummary"
+                        key="summary"
+                        text="{i18n>tabSummary}"
+                        icon="sap-icon://chart-table-view">
+                        <Table
+                            id="summaryTable"
+                            growing="true"
+                            growingThreshold="20"
+                            items="{
+                                path: '/StockSummary',
+                                sorter: { path: 'totalQuantity', descending: true }
+                            }">
+                            <headerToolbar>
+                                <OverflowToolbar>
+                                    <Title text="{i18n>tabSummary}" level="H3"/>
+                                    <ToolbarSpacer/>
+                                </OverflowToolbar>
+                            </headerToolbar>
+                            <columns>
+                                <Column minScreenWidth="Tablet" demandPopin="true">
+                                    <Text text="{i18n>colProduct}"/>
+                                </Column>
+                                <Column width="30%" minScreenWidth="Desktop" demandPopin="true">
+                                    <Text text="{i18n>colLevel}"/>
+                                </Column>
+                                <Column hAlign="End">
+                                    <Text text="{i18n>colTotal}"/>
+                                </Column>
+                                <Column hAlign="Center" width="8rem">
+                                    <Text text="{i18n>colStatus}"/>
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Text text="{productName}"/>
+                                        <ProgressIndicator
+                                            percentValue="{ path: 'totalQuantity', formatter: '.formatter.percent' }"
+                                            displayValue="{totalQuantity} units"
+                                            state="{ path: 'totalQuantity', formatter: '.formatter.state' }"/>
+                                        <ObjectNumber
+                                            number="{totalQuantity}"
+                                            unit="{i18n>units}"/>
+                                        <ObjectStatus
+                                            text="{ path: 'totalQuantity', formatter: '.formatter.statusText' }"
+                                            state="{ path: 'totalQuantity', formatter: '.formatter.state' }"/>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </IconTabFilter>
+
+                    <!-- Tab 2: Stock by Warehouse -->
+                    <IconTabFilter
+                        id="tabByWarehouse"
+                        key="byWarehouse"
+                        text="{i18n>tabByWarehouse}"
+                        icon="sap-icon://building">
+                        <Table
+                            id="stockTable"
+                            growing="true"
+                            growingThreshold="20"
+                            items="{
+                                path: '/StockItems',
+                                parameters: {
+                                    $expand: 'warehouse,product'
+                                },
+                                sorter: { path: 'warehouse/name' }
+                            }">
+                            <headerToolbar>
+                                <OverflowToolbar>
+                                    <Title text="{i18n>tabByWarehouse}" level="H3"/>
+                                    <ToolbarSpacer/>
+                                </OverflowToolbar>
+                            </headerToolbar>
+                            <columns>
+                                <Column minScreenWidth="Tablet" demandPopin="true">
+                                    <Text text="{i18n>colWarehouse}"/>
+                                </Column>
+                                <Column minScreenWidth="Desktop" demandPopin="true">
+                                    <Text text="{i18n>colLocation}"/>
+                                </Column>
+                                <Column>
+                                    <Text text="{i18n>colProduct}"/>
+                                </Column>
+                                <Column minScreenWidth="Tablet" demandPopin="true">
+                                    <Text text="{i18n>colSku}"/>
+                                </Column>
+                                <Column hAlign="End">
+                                    <Text text="{i18n>colQuantity}"/>
+                                </Column>
+                                <Column hAlign="Center" width="8rem">
+                                    <Text text="{i18n>colStatus}"/>
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Text text="{warehouse/name}"/>
+                                        <Text text="{warehouse/location}"/>
+                                        <Text text="{product/name}"/>
+                                        <ObjectIdentifier text="{product/sku}"/>
+                                        <ObjectNumber
+                                            number="{quantity}"
+                                            unit="{i18n>units}"/>
+                                        <ObjectStatus
+                                            text="{ path: 'quantity', formatter: '.formatter.statusText' }"
+                                            state="{ path: 'quantity', formatter: '.formatter.state' }"/>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </IconTabFilter>
+                </items>
+            </IconTabBar>
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>
+

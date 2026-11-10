@@ -1,0 +1,73 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form">
+    <Dialog
+        id="checkAvailabilityDialog"
+        title="{i18n>checkAvailTitle}"
+        contentWidth="28rem">
+        <form:SimpleForm
+            editable="true"
+            layout="ResponsiveGridLayout"
+            labelSpanXL="4"
+            labelSpanL="4"
+            labelSpanM="4"
+            labelSpanS="12"
+            adjustLabelSpan="false"
+            emptySpanXL="0"
+            emptySpanL="0"
+            emptySpanM="0"
+            emptySpanS="0"
+            columnsXL="1"
+            columnsL="1"
+            columnsM="1"
+            singleContainerFullSize="false">
+
+            <Label text="{i18n>checkWarehouse}" required="true"/>
+            <Select
+                id="selCheckWarehouse"
+                width="100%"
+                forceSelection="false"
+                selectedKey="{view>/check/warehouse}"
+                change=".onCheckParamsChange"
+                items="{ path: '/Warehouses', sorter: { path: 'name' } }">
+                <core:Item key="{ID}" text="{name} ({location})"/>
+            </Select>
+
+            <Label text="{i18n>checkProduct}" required="true"/>
+            <Select
+                id="selCheckProduct"
+                width="100%"
+                forceSelection="false"
+                selectedKey="{view>/check/product}"
+                change=".onCheckParamsChange"
+                items="{ path: '/Products', sorter: { path: 'name' } }">
+                <core:Item key="{ID}" text="{name} ({sku})"/>
+            </Select>
+
+            <Label text=""/>
+            <VBox class="sapUiTinyMarginTopBottom">
+                <MessageStrip
+                    id="msgCheckResult"
+                    type="Information"
+                    showIcon="true"
+                    visible="{= ${view>/check/result} !== null &amp;&amp; ${view>/check/result} !== undefined }"
+                    text="{= ${i18n>availResult} + ' ' + ${view>/check/result} + ' ' + ${i18n>units} }"/>
+                <MessageStrip
+                    id="msgCheckPrompt"
+                    type="None"
+                    showIcon="false"
+                    visible="{= ${view>/check/result} === null || ${view>/check/result} === undefined }"
+                    text="{i18n>selectWarehouseProduct}"/>
+            </VBox>
+        </form:SimpleForm>
+
+        <endButton>
+            <Button
+                id="btnCloseCheck"
+                text="{i18n>close}"
+                press=".onCloseCheckAvailability"/>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>
+

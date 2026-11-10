@@ -22,6 +22,12 @@
       "authenticationType": "none"
     },
     {
+      "source": "^/inventory/(.*)$",
+      "target": "$1",
+      "localDir": "resources/inventory",
+      "authenticationType": "none"
+    },
+    {
       "source": "^/(.*)$",
       "target": "$1",
       "localDir": "resources",

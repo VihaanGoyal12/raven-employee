@@ -82,6 +82,7 @@
   ],
   "sapux": [
     "app/employees",
-    "app/purchaseorders"
+    "app/purchaseorders",
+    "app/inventory"
   ]
 }

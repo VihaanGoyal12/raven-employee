@@ -1,0 +1,15 @@
+{
+  "name": "raven.inventory",
+  "version": "1.0.0",
+  "description": "Stock Overview Freestyle SAPUI5 Application",
+  "keywords": [
+    "ui5",
+    "openui5",
+    "sapui5"
+  ],
+  "main": "webapp/index.html",
+  "scripts": {
+    "start": "fiori run --open 'index.html'"
+  }
+}
+
