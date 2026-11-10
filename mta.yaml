@@ -144,3 +144,6 @@ build-parameters:
     - rm -rf app/router/resources
     - mkdir -p app/router/resources/employees
     - cp -r app/employees/webapp app/router/resources/employees/
+    - mkdir -p app/router/resources/purchaseorders
+    - cp -r app/purchaseorders/webapp app/router/resources/purchaseorders/
+    - cp app/router/landing.html app/router/resources/index.html

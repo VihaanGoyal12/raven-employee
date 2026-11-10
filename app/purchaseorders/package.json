@@ -1,0 +1,15 @@
+{
+  "name": "raven.procurement.purchaseorders",
+  "version": "1.0.0",
+  "description": "Manage Purchase Orders Application",
+  "keywords": [
+    "ui5",
+    "openui5",
+    "sapui5"
+  ],
+  "main": "webapp/index.html",
+  "scripts": {
+    "start": "fiori run --open 'index.html'"
+  }
+}
+

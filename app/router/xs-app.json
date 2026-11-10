@@ -1,5 +1,5 @@
 {
-  "welcomeFile": "/employees/webapp/index.html",
+  "welcomeFile": "/index.html",
   "authenticationMethod": "none",
   "routes": [
     {
@@ -13,6 +13,18 @@
       "source": "^/employees/(.*)$",
       "target": "$1",
       "localDir": "resources/employees",
+      "authenticationType": "none"
+    },
+    {
+      "source": "^/purchaseorders/(.*)$",
+      "target": "$1",
+      "localDir": "resources/purchaseorders",
+      "authenticationType": "none"
+    },
+    {
+      "source": "^/(.*)$",
+      "target": "$1",
+      "localDir": "resources",
       "authenticationType": "none"
     }
   ]

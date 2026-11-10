@@ -81,6 +81,7 @@
     "app/*"
   ],
   "sapux": [
-    "app/employees"
+    "app/employees",
+    "app/purchaseorders"
   ]
 }
