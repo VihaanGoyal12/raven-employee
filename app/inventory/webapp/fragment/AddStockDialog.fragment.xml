@@ -1,0 +1,74 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form">
+    <Dialog
+        id="addStockDialog"
+        title="{i18n>dialogAddStockTitle}"
+        contentWidth="30rem"
+        initialFocus="inpProductName">
+        <form:SimpleForm
+            editable="true"
+            layout="ResponsiveGridLayout"
+            labelSpanXL="4"
+            labelSpanL="4"
+            labelSpanM="4"
+            labelSpanS="12"
+            adjustLabelSpan="false"
+            emptySpanXL="0"
+            emptySpanL="0"
+            emptySpanM="0"
+            emptySpanS="0"
+            columnsXL="1"
+            columnsL="1"
+            columnsM="1"
+            singleContainerFullSize="false">
+
+            <Label text="{i18n>productName}" required="true"/>
+            <Input
+                id="inpProductName"
+                value="{view>/newStock/productName}"
+                placeholder="e.g. Wireless Mouse"/>
+
+            <Label text="{i18n>sku}" required="true"/>
+            <Input
+                id="inpSku"
+                value="{view>/newStock/sku}"
+                placeholder="e.g. MOU-002"/>
+
+            <Label text="{i18n>warehouse}" required="true"/>
+            <Select
+                id="selNewStockWarehouse"
+                width="100%"
+                forceSelection="false"
+                selectedKey="{view>/newStock/warehouseId}"
+                items="{ path: '/Warehouses', sorter: { path: 'name' } }">
+                <core:Item key="{ID}" text="{name} ({location})"/>
+            </Select>
+
+            <Label text="{i18n>quantity}" required="true"/>
+            <StepInput
+                id="inpNewStockQty"
+                width="100%"
+                min="1"
+                value="{view>/newStock/quantity}"/>
+        </form:SimpleForm>
+
+        <beginButton>
+            <Button
+                id="btnSaveNewStock"
+                type="Emphasized"
+                text="{i18n>save}"
+                press=".onSaveNewStock"
+                enabled="{= !!${view>/newStock/productName} &amp;&amp; !!${view>/newStock/sku} &amp;&amp; !!${view>/newStock/warehouseId} &amp;&amp; ${view>/newStock/quantity} > 0 }"/>
+        </beginButton>
+
+        <endButton>
+            <Button
+                id="btnCancelNewStock"
+                text="{i18n>cancel}"
+                press=".onCancelAddStock"/>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>
+

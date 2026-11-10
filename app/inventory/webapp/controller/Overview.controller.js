@@ -30,6 +30,16 @@ sap.ui.define([
                     warehouse: null,
                     product: null,
                     result: null
+                },
+                newStock: {
+                    productName: "",
+                    sku: "",
+                    warehouseId: null,
+                    quantity: 10
+                },
+                newWarehouse: {
+                    name: "",
+                    location: ""
                 }
             });
             this.getView().setModel(oViewModel, "view");
@@ -235,6 +245,137 @@ sap.ui.define([
 
         _vm: function () {
             return this.getView().getModel("view");
+        },
+
+        /**
+         * Open Add Product & Stock Dialog
+         */
+        onOpenAddStock: async function () {
+            if (!this._addStockDialog) {
+                this._addStockDialog = await this.loadFragment({
+                    name: "raven.inventory.fragment.AddStockDialog"
+                });
+            }
+            this._vm().setProperty("/newStock", {
+                productName: "",
+                sku: "",
+                warehouseId: null,
+                quantity: 10
+            });
+            this._addStockDialog.open();
+        },
+
+        onCancelAddStock: function () {
+            if (this._addStockDialog) {
+                this._addStockDialog.close();
+            }
+        },
+
+        onSaveNewStock: async function () {
+            const oData = this._vm().getProperty("/newStock");
+            const oModel = this.getView().getModel();
+
+            const sProductId = this._uuid();
+            const sStockId = this._uuid();
+
+            try {
+                // 1. Create Product in database
+                const oProductsList = oModel.bindList("/Products");
+                const oProductContext = oProductsList.create({
+                    ID: sProductId,
+                    sku: (oData.sku || "").trim(),
+                    name: (oData.productName || "").trim()
+                });
+                await oProductContext.created();
+
+                // 2. Create StockItem in database
+                const oStockList = oModel.bindList("/StockItems");
+                const oStockContext = oStockList.create({
+                    ID: sStockId,
+                    warehouse_ID: oData.warehouseId,
+                    product_ID: sProductId,
+                    quantity: parseInt(oData.quantity, 10) || 1
+                });
+                await oStockContext.created();
+
+                MessageToast.show(this._getI18nText("addStockSuccess") || "Product and stock created successfully.");
+                this._addStockDialog.close();
+                this.onRefresh();
+            } catch (oError) {
+                let sMsg = oError.message || "Failed to create product and stock.";
+                if (oError.error && oError.error.message) {
+                    sMsg = oError.error.message;
+                }
+                MessageBox.error(sMsg);
+            }
+        },
+
+        /**
+         * Open Add Warehouse Dialog
+         */
+        onOpenAddWarehouse: async function () {
+            if (!this._addWarehouseDialog) {
+                this._addWarehouseDialog = await this.loadFragment({
+                    name: "raven.inventory.fragment.AddWarehouseDialog"
+                });
+            }
+            this._vm().setProperty("/newWarehouse", {
+                name: "",
+                location: ""
+            });
+            this._addWarehouseDialog.open();
+        },
+
+        onCancelAddWarehouse: function () {
+            if (this._addWarehouseDialog) {
+                this._addWarehouseDialog.close();
+            }
+        },
+
+        onSaveNewWarehouse: async function () {
+            const oData = this._vm().getProperty("/newWarehouse");
+            const oModel = this.getView().getModel();
+            const sWarehouseId = this._uuid();
+
+            try {
+                const oWarehouseList = oModel.bindList("/Warehouses");
+                const oContext = oWarehouseList.create({
+                    ID: sWarehouseId,
+                    name: (oData.name || "").trim(),
+                    location: (oData.location || "").trim()
+                });
+                await oContext.created();
+
+                MessageToast.show(this._getI18nText("addWarehouseSuccess") || "Warehouse created successfully.");
+                this._addWarehouseDialog.close();
+                this.onRefresh();
+            } catch (oError) {
+                let sMsg = oError.message || "Failed to create warehouse.";
+                if (oError.error && oError.error.message) {
+                    sMsg = oError.error.message;
+                }
+                MessageBox.error(sMsg);
+            }
+        },
+
+        _uuid: function () {
+            if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+                return crypto.randomUUID();
+            }
+            return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+                const r = (Math.random() * 16) | 0;
+                const v = c === "x" ? r : (r & 0x3) | 0x8;
+                return v.toString(16);
+            });
+        },
+
+        _getI18nText: function (sKey) {
+            try {
+                const oBundle = this.getOwnerComponent().getModel("i18n").getResourceBundle();
+                return oBundle.getText(sKey);
+            } catch (e) {
+                return null;
+            }
         }
     });
 });

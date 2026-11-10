@@ -17,6 +17,16 @@
                 </f:heading>
                 <f:actions>
                     <Button
+                        id="btnAddStock"
+                        text="{i18n>addStock}"
+                        icon="sap-icon://add-product"
+                        press=".onOpenAddStock"/>
+                    <Button
+                        id="btnAddWarehouse"
+                        text="{i18n>addWarehouse}"
+                        icon="sap-icon://building"
+                        press=".onOpenAddWarehouse"/>
+                    <Button
                         id="btnTransfer"
                         text="{i18n>transferStock}"
                         type="Emphasized"
