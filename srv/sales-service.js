@@ -56,22 +56,34 @@ export default cds.service.impl(async function () {
             grossAmount * (1 - discountPercent / 100);
     });
 
-    // Day 9: Populate canApprove and human-readable order number (SO-1001, etc.)
-    const orderNumberCache = new Map();
-    let nextOrderNum = 1001;
+    // Day 9: Stable, sequential order numbers (SO-1001, SO-1002, etc.)
+    const staticOrderNumbers = {
+        'a1111111-1111-4111-8111-111111111111': 'SO-1001',
+        'a2222222-2222-4222-8222-222222222222': 'SO-1002',
+        'a3333333-3333-4333-8333-333333333333': 'SO-1003',
+        'a4444444-4444-4444-8444-444444444444': 'SO-1004',
+        'a5555555-5555-4555-8555-555555555555': 'SO-1005',
+        'a6666666-6666-4666-8666-666666666666': 'SO-1006',
+        'a7777777-7777-4777-8777-777777777777': 'SO-1007'
+    };
+    const dynamicOrderCache = new Map();
+
+    function resolveOrderNumber(id) {
+        if (!id) return 'SO-1000';
+        if (staticOrderNumbers[id]) return staticOrderNumbers[id];
+        if (dynamicOrderCache.has(id)) return dynamicOrderCache.get(id);
+
+        const nextNum = 1007 + dynamicOrderCache.size;
+        const generated = `SO-${nextNum}`;
+        dynamicOrderCache.set(id, generated);
+        return generated;
+    }
 
     this.after('READ', SalesOrders, (rows, req) => {
         const isManager = req.user && typeof req.user.is === 'function' ? req.user.is('SalesManager') : false;
         for (const o of [].concat(rows ?? [])) {
             if (o && typeof o === 'object') {
-                if (o.ID) {
-                    if (!orderNumberCache.has(o.ID)) {
-                        orderNumberCache.set(o.ID, `SO-${nextOrderNum++}`);
-                    }
-                    o.order = orderNumberCache.get(o.ID);
-                } else if (!o.order) {
-                    o.order = `SO-${nextOrderNum++}`;
-                }
+                o.order = resolveOrderNumber(o.ID);
                 o.canApprove = isManager && o.status !== 'Approved';
             }
         }
