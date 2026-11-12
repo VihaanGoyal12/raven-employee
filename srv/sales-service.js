@@ -56,8 +56,19 @@ export default cds.service.impl(async function () {
             grossAmount * (1 - discountPercent / 100);
     });
 
+    // Day 9: Populate canApprove virtual field after READ
+    this.after('READ', SalesOrders, (rows, req) => {
+        const isManager = req.user.is('SalesManager');
+        for (const o of [].concat(rows ?? [])) {
+            if (o) {
+                o.canApprove = isManager && o.status !== 'Approved';
+            }
+        }
+    });
+
     // Day 4: Commercial approval
     this.on('approveOrder', SalesOrders, async (req) => {
+        // With @odata.draft.enabled, req.params[0] is { ID, IsActiveEntity }
         const { ID } = req.params[0];
 
         const tx = cds.transaction(req);

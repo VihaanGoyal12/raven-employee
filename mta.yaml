@@ -66,7 +66,8 @@ modules:
     properties:
       name: srv-api
       url: ~{srv-url}
-      forwardAuthToken: false
+      forwardAuthToken: true
+  - name: raven-employee-directory-auth
 
 resources:
 - name: raven-employee-directory-db
@@ -82,6 +83,8 @@ resources:
       oauth2-configuration:
         redirect-uris:
         - https://oauth.pstmn.io/v1/callback
+        - https://f1de4b2dtrial-dev-raven-employee-directory-router.cfapps.ap21.hana.ondemand.com/**
+        - http://localhost:5000/**
       role-templates:
       - name: SalesUserRole
         scope-references:
@@ -148,4 +151,6 @@ build-parameters:
     - cp -r app/purchaseorders/webapp app/router/resources/purchaseorders/
     - mkdir -p app/router/resources/inventory
     - cp -r app/inventory/webapp app/router/resources/inventory/
+    - mkdir -p app/router/resources/salesorders
+    - cp -r app/salesorders/webapp app/router/resources/salesorders/
     - cp app/router/landing.html app/router/resources/index.html

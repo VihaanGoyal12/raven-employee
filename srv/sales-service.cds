@@ -1,20 +1,29 @@
 
 using raven.sales as sales from '../db/sales-schema';
 
-service SalesService {
-    @requires: 'SalesUser'
+service SalesService @(path: 'sales') {
+
+    @requires: 'authenticated-user'
     entity Customers as projection on sales.Customers;
 
     @restrict: [
-        { grant: 'READ', to: ['SalesUser', 'SalesManager', 'FulfillmentManager'] },
-        { grant: 'CREATE', to: 'SalesUser' },
-        { grant: 'approveOrder', to: 'SalesManager' },
-        { grant: 'reserveStock', to: 'FulfillmentManager' },
+        { grant: 'READ',          to: ['SalesUser', 'SalesManager', 'FulfillmentManager'] },
+        { grant: 'CREATE',        to: 'SalesUser' },
+        { grant: 'approveOrder',  to: 'SalesManager' },
+        { grant: 'reserveStock',  to: 'FulfillmentManager' },
         { grant: 'dispatchOrder', to: 'FulfillmentManager' }
     ]
+    @odata.draft.enabled
     entity SalesOrders as projection on sales.SalesOrders {
         *,
-        items: redirected to SalesOrderItems
+        items : redirected to SalesOrderItems,
+
+        virtual null as canApprove        : Boolean,
+
+        case
+            when status = 'Approved' then 3
+            else 5
+        end as statusCriticality          : Integer
     }
     actions {
         @requires: 'SalesManager'
@@ -28,7 +37,7 @@ service SalesService {
     };
 
     @restrict: [
-        { grant: 'READ', to: ['SalesUser', 'FulfillmentManager'] },
+        { grant: 'READ',   to: ['SalesUser', 'SalesManager', 'FulfillmentManager'] },
         { grant: 'CREATE', to: 'SalesUser' }
     ]
     entity SalesOrderItems as projection on sales.SalesOrderItems;
