@@ -24,6 +24,10 @@ export default cds.service.impl(async function () {
             return req.error(404, 'Customer not found');
         }
 
+        // Auto-generate order number SO-N
+        const count = await SELECT.one`count(*) as cnt`.from(SalesOrders);
+        req.data.orderNumber = `SO-${(Number(count?.cnt ?? 0) + 1)}`;
+
         let discountPercent;
 
         if (cds.env.requires.db.kind === 'sqlite') {

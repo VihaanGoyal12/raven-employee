@@ -8,13 +8,13 @@ annotate SalesService.SalesOrders with @(
     UI.HeaderInfo: {
         TypeName       : 'Sales Order',
         TypeNamePlural : 'Sales Orders',
-        Title          : { Value: customer.name },
+        Title          : { Value: orderNumber },
         Description    : { Value: status }
     },
 
     // List Report columns
     UI.LineItem: [
-        { $Type: 'UI.DataField',                 Value: ID,            Label: 'Order ID'   },
+        { $Type: 'UI.DataField',                 Value: orderNumber,   Label: 'Order No.'  },
         { $Type: 'UI.DataField',                 Value: customer_ID,   Label: 'Customer'   },
         { $Type: 'UI.DataField',                 Value: orderDate,     Label: 'Order Date' },
         { $Type: 'UI.DataField',                 Value: grossAmount,   Label: 'Gross Amt'  },
@@ -84,6 +84,7 @@ annotate SalesService.SalesOrders with @(
 
     UI.FieldGroup#general: {
         Data: [
+            { $Type: 'UI.DataField', Value: orderNumber,    Label: 'Order No.'   },
             { $Type: 'UI.DataField', Value: customer_ID,    Label: 'Customer'    },
             { $Type: 'UI.DataField', Value: orderDate,       Label: 'Order Date'  },
             { $Type: 'UI.DataField', Value: grossAmount,     Label: 'Gross Amount'},
