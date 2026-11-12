@@ -57,26 +57,15 @@ export default cds.service.impl(async function () {
     });
 
     // Day 9: Stable, sequential order numbers (SO-1001, SO-1002, etc.)
-    const staticOrderNumbers = {
-        'a1111111-1111-4111-8111-111111111111': 'SO-1001',
-        'a2222222-2222-4222-8222-222222222222': 'SO-1002',
-        'a3333333-3333-4333-8333-333333333333': 'SO-1003',
-        'a4444444-4444-4444-8444-444444444444': 'SO-1004',
-        'a5555555-5555-4555-8555-555555555555': 'SO-1005',
-        'a6666666-6666-4666-8666-666666666666': 'SO-1006',
-        'a7777777-7777-4777-8777-777777777777': 'SO-1007'
-    };
-    const dynamicOrderCache = new Map();
+    const orderNumberCache = new Map();
 
     function resolveOrderNumber(id) {
-        if (!id) return 'SO-1000';
-        if (staticOrderNumbers[id]) return staticOrderNumbers[id];
-        if (dynamicOrderCache.has(id)) return dynamicOrderCache.get(id);
-
-        const nextNum = 1007 + dynamicOrderCache.size;
-        const generated = `SO-${nextNum}`;
-        dynamicOrderCache.set(id, generated);
-        return generated;
+        if (!id) return 'SO-1001';
+        if (!orderNumberCache.has(id)) {
+            const nextNum = 1001 + orderNumberCache.size;
+            orderNumberCache.set(id, `SO-${nextNum}`);
+        }
+        return orderNumberCache.get(id);
     }
 
     this.after('READ', SalesOrders, (rows, req) => {
@@ -89,31 +78,24 @@ export default cds.service.impl(async function () {
         }
     });
 
-    // Auto-seed sample sales orders if the table is empty
+    // Initialize clean SO-1001..SO-1006 mapping for all orders in DB on startup
     cds.on('served', async () => {
         try {
             const db = await cds.connect.to('db');
-            const { SalesOrders: dbSalesOrders, Customers: dbCustomers } = db.entities('raven.sales');
-            const existing = await db.run(SELECT.one`count(*) as cnt`.from(dbSalesOrders));
-            if (!existing || Number(existing.cnt) === 0) {
-                const customers = await db.run(SELECT.from(dbCustomers));
-                if (customers && customers.length > 0) {
-                    const c1 = customers[0].ID;
-                    const c2 = customers[1] ? customers[1].ID : c1;
-                    const c3 = customers[2] ? customers[2].ID : c1;
-
-                    await db.run(INSERT.into(dbSalesOrders).entries([
-                        { ID: 'a1111111-1111-4111-8111-111111111111', customer_ID: c1, orderDate: '2026-10-25', status: 'New', grossAmount: 4000.00, discountPercent: 0.00, netAmount: 4000.00 },
-                        { ID: 'a2222222-2222-4222-8222-222222222222', customer_ID: c2, orderDate: '2026-10-26', status: 'Approved', grossAmount: 6000.00, discountPercent: 10.00, netAmount: 5400.00 },
-                        { ID: 'a3333333-3333-4333-8333-333333333333', customer_ID: c3, orderDate: '2026-10-27', status: 'New', grossAmount: 3500.00, discountPercent: 0.00, netAmount: 3500.00 },
-                        { ID: 'a4444444-4444-4444-8444-444444444444', customer_ID: c2, orderDate: '2026-10-28', status: 'New', grossAmount: 12000.00, discountPercent: 15.00, netAmount: 10200.00 },
-                        { ID: 'a5555555-5555-4555-8555-555555555555', customer_ID: c2, orderDate: '2026-10-29', status: 'Approved', grossAmount: 15000.00, discountPercent: 15.00, netAmount: 12750.00 },
-                        { ID: 'a6666666-6666-4666-8666-666666666666', customer_ID: c1, orderDate: '2026-11-01', status: 'New', grossAmount: 2500.00, discountPercent: 0.00, netAmount: 2500.00 }
-                    ]));
+            const { SalesOrders: dbSalesOrders } = db.entities('raven.sales');
+            const allOrders = await db.run(
+                SELECT.from(dbSalesOrders).columns('ID').orderBy('orderDate asc', 'ID asc')
+            );
+            if (allOrders && allOrders.length > 0) {
+                let startNum = 1001;
+                for (const ord of allOrders) {
+                    if (ord.ID && !orderNumberCache.has(ord.ID)) {
+                        orderNumberCache.set(ord.ID, `SO-${startNum++}`);
+                    }
                 }
             }
         } catch (e) {
-            // Non-critical: table might already have records or during migration
+            // ignore
         }
     });
 
