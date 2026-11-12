@@ -18,6 +18,7 @@ service SalesService @(path: 'sales') {
         *,
         items : redirected to SalesOrderItems,
 
+        virtual null as order             : String(20),
         virtual null as canApprove        : Boolean,
 
         case

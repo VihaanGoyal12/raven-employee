@@ -56,13 +56,52 @@ export default cds.service.impl(async function () {
             grossAmount * (1 - discountPercent / 100);
     });
 
-    // Day 9: Populate canApprove virtual field after READ
+    // Day 9: Populate canApprove and human-readable order number (SO-1001, etc.)
+    const orderNumberCache = new Map();
+    let nextOrderNum = 1001;
+
     this.after('READ', SalesOrders, (rows, req) => {
-        const isManager = req.user.is('SalesManager');
+        const isManager = req.user && typeof req.user.is === 'function' ? req.user.is('SalesManager') : false;
         for (const o of [].concat(rows ?? [])) {
-            if (o) {
+            if (o && typeof o === 'object') {
+                if (o.ID) {
+                    if (!orderNumberCache.has(o.ID)) {
+                        orderNumberCache.set(o.ID, `SO-${nextOrderNum++}`);
+                    }
+                    o.order = orderNumberCache.get(o.ID);
+                } else if (!o.order) {
+                    o.order = `SO-${nextOrderNum++}`;
+                }
                 o.canApprove = isManager && o.status !== 'Approved';
             }
+        }
+    });
+
+    // Auto-seed sample sales orders if the table is empty
+    cds.on('served', async () => {
+        try {
+            const db = await cds.connect.to('db');
+            const { SalesOrders: dbSalesOrders, Customers: dbCustomers } = db.entities('raven.sales');
+            const existing = await db.run(SELECT.one`count(*) as cnt`.from(dbSalesOrders));
+            if (!existing || Number(existing.cnt) === 0) {
+                const customers = await db.run(SELECT.from(dbCustomers));
+                if (customers && customers.length > 0) {
+                    const c1 = customers[0].ID;
+                    const c2 = customers[1] ? customers[1].ID : c1;
+                    const c3 = customers[2] ? customers[2].ID : c1;
+
+                    await db.run(INSERT.into(dbSalesOrders).entries([
+                        { ID: 'a1111111-1111-4111-8111-111111111111', customer_ID: c1, orderDate: '2026-10-25', status: 'New', grossAmount: 4000.00, discountPercent: 0.00, netAmount: 4000.00 },
+                        { ID: 'a2222222-2222-4222-8222-222222222222', customer_ID: c2, orderDate: '2026-10-26', status: 'Approved', grossAmount: 6000.00, discountPercent: 10.00, netAmount: 5400.00 },
+                        { ID: 'a3333333-3333-4333-8333-333333333333', customer_ID: c3, orderDate: '2026-10-27', status: 'New', grossAmount: 3500.00, discountPercent: 0.00, netAmount: 3500.00 },
+                        { ID: 'a4444444-4444-4444-8444-444444444444', customer_ID: c2, orderDate: '2026-10-28', status: 'New', grossAmount: 12000.00, discountPercent: 15.00, netAmount: 10200.00 },
+                        { ID: 'a5555555-5555-4555-8555-555555555555', customer_ID: c2, orderDate: '2026-10-29', status: 'Approved', grossAmount: 15000.00, discountPercent: 15.00, netAmount: 12750.00 },
+                        { ID: 'a6666666-6666-4666-8666-666666666666', customer_ID: c1, orderDate: '2026-11-01', status: 'New', grossAmount: 2500.00, discountPercent: 0.00, netAmount: 2500.00 }
+                    ]));
+                }
+            }
+        } catch (e) {
+            // Non-critical: table might already have records or during migration
         }
     });
 

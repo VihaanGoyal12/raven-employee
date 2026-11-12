@@ -8,23 +8,23 @@ annotate SalesService.SalesOrders with @(
     UI.HeaderInfo: {
         TypeName       : 'Sales Order',
         TypeNamePlural : 'Sales Orders',
-        Title          : { Value: customer.name },
+        Title          : { Value: order },
         Description    : { Value: status }
     },
 
     // List Report columns
     UI.LineItem: [
-        { $Type: 'UI.DataField', Value: ID,              Label: 'Order ID'   },
-        { $Type: 'UI.DataField', Value: customer_ID,     Label: 'Customer'   },
-        { $Type: 'UI.DataField', Value: orderDate,       Label: 'Order Date' },
-        { $Type: 'UI.DataField', Value: grossAmount,     Label: 'Gross Amt'  },
-        { $Type: 'UI.DataField', Value: discountPercent, Label: 'Discount %' },
-        { $Type: 'UI.DataField', Value: netAmount,       Label: 'Net Amount' },
-        { $Type: 'UI.DataField', Value: status,          Label: 'Status',    Criticality: statusCriticality }
+        { $Type: 'UI.DataField', Value: order,                Label: 'Order'        },
+        { $Type: 'UI.DataField', Value: customer_ID,          Label: 'Customer'     },
+        { $Type: 'UI.DataField', Value: customer.customerType, Label: 'Type'        },
+        { $Type: 'UI.DataField', Value: grossAmount,          Label: 'Gross Amount' },
+        { $Type: 'UI.DataField', Value: discountPercent,      Label: 'Discount'     },
+        { $Type: 'UI.DataField', Value: netAmount,            Label: 'Net Amount'   },
+        { $Type: 'UI.DataField', Value: status,               Label: 'Status', Criticality: statusCriticality }
     ],
 
     // Filter bar fields
-    UI.SelectionFields: [ customer_ID, status, orderDate ],
+    UI.SelectionFields: [ customer_ID, customer.customerType, status ],
 
     // ── Object Page header KPIs ────────────────────────────────────────────
     UI.HeaderFacets: [
@@ -84,12 +84,13 @@ annotate SalesService.SalesOrders with @(
 
     UI.FieldGroup#general: {
         Data: [
-            { $Type: 'UI.DataField', Value: customer_ID,    Label: 'Customer'    },
-            { $Type: 'UI.DataField', Value: orderDate,       Label: 'Order Date'  },
-            { $Type: 'UI.DataField', Value: grossAmount,     Label: 'Gross Amount'},
-            { $Type: 'UI.DataField', Value: discountPercent, Label: 'Discount %'  },
-            { $Type: 'UI.DataField', Value: netAmount,       Label: 'Net Amount'  },
-            { $Type: 'UI.DataField', Value: status,          Label: 'Status',    Criticality: statusCriticality }
+            { $Type: 'UI.DataField', Value: order,          Label: 'Order'        },
+            { $Type: 'UI.DataField', Value: customer_ID,    Label: 'Customer'     },
+            { $Type: 'UI.DataField', Value: orderDate,      Label: 'Order Date'   },
+            { $Type: 'UI.DataField', Value: grossAmount,    Label: 'Gross Amount' },
+            { $Type: 'UI.DataField', Value: discountPercent,Label: 'Discount %'   },
+            { $Type: 'UI.DataField', Value: netAmount,      Label: 'Net Amount'   },
+            { $Type: 'UI.DataField', Value: status,         Label: 'Status', Criticality: statusCriticality }
         ]
     }
 );
@@ -97,6 +98,7 @@ annotate SalesService.SalesOrders with @(
 // ── Field-level annotations ────────────────────────────────────────────────
 
 annotate SalesService.SalesOrders with {
+    order          @Core.Computed: true;
     customer       @Common.Text: customer.name  @Common.TextArrangement: #TextOnly;
     discountPercent @Core.Computed: true;
     netAmount       @Core.Computed: true;
