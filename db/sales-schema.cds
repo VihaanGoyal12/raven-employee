@@ -8,7 +8,6 @@ entity Customers {
 
 entity SalesOrders {
     key ID : UUID;
-    orderNumber  : String(10) @readonly;
     customer : Association to Customers @mandatory;
     orderDate : Date default $now;
     status : String(20) default 'New';

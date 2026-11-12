@@ -8,19 +8,19 @@ annotate SalesService.SalesOrders with @(
     UI.HeaderInfo: {
         TypeName       : 'Sales Order',
         TypeNamePlural : 'Sales Orders',
-        Title          : { Value: orderNumber },
+        Title          : { Value: customer.name },
         Description    : { Value: status }
     },
 
     // List Report columns
     UI.LineItem: [
-        { $Type: 'UI.DataField',                 Value: orderNumber,   Label: 'Order No.'  },
-        { $Type: 'UI.DataField',                 Value: customer_ID,   Label: 'Customer'   },
-        { $Type: 'UI.DataField',                 Value: orderDate,     Label: 'Order Date' },
-        { $Type: 'UI.DataField',                 Value: grossAmount,   Label: 'Gross Amt'  },
-        { $Type: 'UI.DataField',                 Value: discountPercent, Label: 'Discount %'},
-        { $Type: 'UI.DataField',                 Value: netAmount,     Label: 'Net Amount' },
-        { $Type: 'UI.DataFieldWithCriticality',  Value: status,        Label: 'Status',    Criticality: statusCriticality }
+        { $Type: 'UI.DataField', Value: ID,              Label: 'Order ID'   },
+        { $Type: 'UI.DataField', Value: customer_ID,     Label: 'Customer'   },
+        { $Type: 'UI.DataField', Value: orderDate,       Label: 'Order Date' },
+        { $Type: 'UI.DataField', Value: grossAmount,     Label: 'Gross Amt'  },
+        { $Type: 'UI.DataField', Value: discountPercent, Label: 'Discount %' },
+        { $Type: 'UI.DataField', Value: netAmount,       Label: 'Net Amount' },
+        { $Type: 'UI.DataField', Value: status,          Label: 'Status',    Criticality: statusCriticality }
     ],
 
     // Filter bar fields
@@ -84,13 +84,12 @@ annotate SalesService.SalesOrders with @(
 
     UI.FieldGroup#general: {
         Data: [
-            { $Type: 'UI.DataField', Value: orderNumber,    Label: 'Order No.'   },
             { $Type: 'UI.DataField', Value: customer_ID,    Label: 'Customer'    },
             { $Type: 'UI.DataField', Value: orderDate,       Label: 'Order Date'  },
             { $Type: 'UI.DataField', Value: grossAmount,     Label: 'Gross Amount'},
             { $Type: 'UI.DataField', Value: discountPercent, Label: 'Discount %'  },
             { $Type: 'UI.DataField', Value: netAmount,       Label: 'Net Amount'  },
-            { $Type: 'UI.DataFieldWithCriticality', Value: status, Label: 'Status', Criticality: statusCriticality }
+            { $Type: 'UI.DataField', Value: status,          Label: 'Status',    Criticality: statusCriticality }
         ]
     }
 );
