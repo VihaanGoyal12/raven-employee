@@ -17,6 +17,17 @@
           "odataVersion": "4.0"
         }
       }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "Stock-overview": {
+          "semanticObject": "Stock",
+          "action": "overview",
+          "title": "{{appTitle}}",
+          "subTitle": "Warehouse Stock Overview",
+          "icon": "sap-icon://inventory"
+        }
+      }
     }
   },
   "sap.ui": {

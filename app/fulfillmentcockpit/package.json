@@ -1,0 +1,5 @@
+{
+  "name": "raven.fulfillment.cockpit",
+  "version": "1.0.0",
+  "main": "webapp/index.html"
+}

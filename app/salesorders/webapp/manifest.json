@@ -18,6 +18,17 @@
           "odataVersion": "4.0"
         }
       }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "SalesOrder-manage": {
+          "semanticObject": "SalesOrder",
+          "action": "manage",
+          "title": "{{appTitle}}",
+          "subTitle": "Manage Customer Orders",
+          "icon": "sap-icon://sales-order"
+        }
+      }
     }
   },
   "sap.ui": {

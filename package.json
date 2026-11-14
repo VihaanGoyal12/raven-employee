@@ -84,6 +84,8 @@
     "app/employees",
     "app/purchaseorders",
     "app/inventory",
-    "app/salesorders"
+    "app/salesorders",
+    "app/fulfillmentcockpit",
+    "app/fulfillmentsummary"
   ]
 }

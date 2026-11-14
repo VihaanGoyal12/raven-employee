@@ -13,6 +13,13 @@
       "csrfProtection": true
     },
     {
+      "source": "^/odata/v4/fulfillment/(.*)$",
+      "target": "/odata/v4/fulfillment/$1",
+      "destination": "srv-api",
+      "authenticationType": "xsuaa",
+      "csrfProtection": true
+    },
+    {
       "source": "^/odata/(.*)$",
       "target": "/odata/$1",
       "destination": "srv-api",
@@ -23,6 +30,18 @@
       "source": "^/salesorders/(.*)$",
       "target": "$1",
       "localDir": "resources/salesorders",
+      "authenticationType": "xsuaa"
+    },
+    {
+      "source": "^/fulfillmentcockpit/(.*)$",
+      "target": "$1",
+      "localDir": "resources/fulfillmentcockpit",
+      "authenticationType": "xsuaa"
+    },
+    {
+      "source": "^/fulfillmentsummary/(.*)$",
+      "target": "$1",
+      "localDir": "resources/fulfillmentsummary",
       "authenticationType": "xsuaa"
     },
     {

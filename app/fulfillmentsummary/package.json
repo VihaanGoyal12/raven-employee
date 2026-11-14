@@ -1,0 +1,11 @@
+{
+  "name": "raven.fulfillment.summary",
+  "version": "1.0.0",
+  "description": "Fulfillment Summary Freestyle SAPUI5 Application",
+  "keywords": [
+    "ui5",
+    "openui5",
+    "sapui5"
+  ],
+  "main": "webapp/index.html"
+}

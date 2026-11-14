@@ -117,9 +117,11 @@ resources:
 
 - name: raven-employee-directory-destination-service
   type: org.cloudfoundry.managed-service
+  requires:
+  - name: srv-api
   parameters:
     config:
-      HTML5Runtime_enabled: false
+      HTML5Runtime_enabled: true
       init_data:
         instance:
           destinations:
@@ -128,6 +130,13 @@ resources:
             ProxyType: Internet
             Type: HTTP
             URL: https://ui5.sap.com
+          - Authentication: NoAuthentication
+            Name: srv-api
+            ProxyType: Internet
+            Type: HTTP
+            URL: ~{srv-api/srv-url}
+            HTML5.DynamicDestination: true
+            HTML5.ForwardAuthToken: true
           existing_destinations_policy: update
       version: 1.0.0
     service: destination
@@ -144,6 +153,7 @@ build-parameters:
     commands:
     - npm ci
     - npx cds build --production
+    - node scripts/package-apps.js
     - rm -rf app/router/resources
     - mkdir -p app/router/resources/employees
     - cp -r app/employees/webapp app/router/resources/employees/
@@ -153,4 +163,8 @@ build-parameters:
     - cp -r app/inventory/webapp app/router/resources/inventory/
     - mkdir -p app/router/resources/salesorders
     - cp -r app/salesorders/webapp app/router/resources/salesorders/
+    - mkdir -p app/router/resources/fulfillmentcockpit
+    - cp -r app/fulfillmentcockpit/webapp app/router/resources/fulfillmentcockpit/
+    - mkdir -p app/router/resources/fulfillmentsummary
+    - cp -r app/fulfillmentsummary/webapp app/router/resources/fulfillmentsummary/
     - cp app/router/landing.html app/router/resources/index.html

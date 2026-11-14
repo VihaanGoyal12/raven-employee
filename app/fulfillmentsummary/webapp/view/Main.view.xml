@@ -1,0 +1,126 @@
+<mvc:View
+    controllerName="raven.fulfillment.summary.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:layout="sap.ui.layout"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:viz.data="sap.viz.ui5.data"
+    height="100%">
+
+    <f:DynamicPage id="dynamicPage" headerExpanded="true" showFooter="false" fitContent="true">
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="Order Fulfillment Performance" />
+                </f:heading>
+                <f:subHeading>
+                    <Label text="Real-time Order Status, Dispatch Rate and Warehouse KPIs" />
+                </f:subHeading>
+                <f:actions>
+                    <Button
+                        text="{i18n>refreshBtn}"
+                        icon="sap-icon://refresh"
+                        type="Emphasized"
+                        press=".onRefresh" />
+                </f:actions>
+            </f:DynamicPageTitle>
+        </f:title>
+
+        <f:header>
+            <f:DynamicPageHeader pinnable="true">
+                <layout:Grid defaultSpan="XL3 L3 M6 S12" class="sapUiSmallMarginBottom">
+                    <!-- KPI 1: Total Orders -->
+                    <VBox class="sapUiTinyMargin sapUiSmallPadding" backgroundDesign="Solid" alignItems="Center">
+                        <Text text="{i18n>kpiTotalOrders}" class="sapUiTinyMarginBottom" />
+                        <HBox alignItems="Center">
+                            <core:Icon xmlns:core="sap.ui.core" src="sap-icon://sales-order" size="2rem" color="#0070f2" class="sapUiTinyMarginEnd" />
+                            <Title text="{viewModel>/totalOrders}" titleStyle="H1" />
+                        </HBox>
+                        <Label text="Across all pipeline stages" design="Bold" class="sapUiTinyMarginTop" />
+                    </VBox>
+
+                    <!-- KPI 2: Dispatch Rate -->
+                    <VBox class="sapUiTinyMargin sapUiSmallPadding" backgroundDesign="Solid" alignItems="Center">
+                        <Text text="{i18n>kpiDispatchedRate}" class="sapUiTinyMarginBottom" />
+                        <HBox alignItems="Center">
+                            <core:Icon xmlns:core="sap.ui.core" src="sap-icon://shipping-status" size="2rem" color="#2b7d2b" class="sapUiTinyMarginEnd" />
+                            <Title text="{viewModel>/dispatchedRate}" titleStyle="H1" />
+                        </HBox>
+                        <Label text="Orders successfully fulfilled" design="Bold" class="sapUiTinyMarginTop" />
+                    </VBox>
+
+                    <!-- KPI 3: Actionable Warehouse Orders -->
+                    <VBox class="sapUiTinyMargin sapUiSmallPadding" backgroundDesign="Solid" alignItems="Center">
+                        <Text text="{i18n>kpiActionable}" class="sapUiTinyMarginBottom" />
+                        <HBox alignItems="Center">
+                            <core:Icon xmlns:core="sap.ui.core" src="sap-icon://action" size="2rem" color="#e9730c" class="sapUiTinyMarginEnd" />
+                            <Title text="{viewModel>/actionableCount}" titleStyle="H1" />
+                        </HBox>
+                        <Label text="Approved + Stock Confirmed" design="Bold" class="sapUiTinyMarginTop" />
+                    </VBox>
+
+                    <!-- KPI 4: Pending Commercial Approval -->
+                    <VBox class="sapUiTinyMargin sapUiSmallPadding" backgroundDesign="Solid" alignItems="Center">
+                        <Text text="{i18n>kpiNew}" class="sapUiTinyMarginBottom" />
+                        <HBox alignItems="Center">
+                            <core:Icon xmlns:core="sap.ui.core" src="sap-icon://pending" size="2rem" color="#bb0000" class="sapUiTinyMarginEnd" />
+                            <Title text="{viewModel>/newCount}" titleStyle="H1" />
+                        </HBox>
+                        <Label text="Awaiting Manager Approval" design="Bold" class="sapUiTinyMarginTop" />
+                    </VBox>
+                </layout:Grid>
+            </f:DynamicPageHeader>
+        </f:header>
+
+        <f:content>
+            <VBox class="sapUiSmallMargin">
+                <!-- Orders by Status Chart -->
+                <Panel headerText="Orders by Fulfillment Status" expandable="false" class="sapUiSmallMarginBottom">
+                    <viz:VizFrame
+                        id="statusVizFrame"
+                        uiConfig="{applicationSet:'fiori'}"
+                        height="360px"
+                        width="100%"
+                        vizType="column">
+                        <viz:dataset>
+                            <viz.data:FlattenedDataset data="{viewModel>/chartData}">
+                                <viz.data:dimensions>
+                                    <viz.data:DimensionDefinition name="Status" value="{viewModel>status}" />
+                                </viz.data:dimensions>
+                                <viz.data:measures>
+                                    <viz.data:MeasureDefinition name="Orders" value="{viewModel>orderCount}" />
+                                </viz.data:measures>
+                            </viz.data:FlattenedDataset>
+                        </viz:dataset>
+                        <viz:feeds>
+                            <viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Status" />
+                            <viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Orders" />
+                        </viz:feeds>
+                    </viz:VizFrame>
+                </Panel>
+
+                <!-- Status Details Table -->
+                <Panel headerText="Pipeline Stage Breakdown" expandable="false">
+                    <Table items="{viewModel>/chartData}" autoPopinMode="true">
+                        <columns>
+                            <Column><Text text="{i18n>status}" /></Column>
+                            <Column hAlign="End"><Text text="{i18n>orderCount}" /></Column>
+                            <Column hAlign="End"><Text text="{i18n>percentage}" /></Column>
+                        </columns>
+                        <items>
+                            <ColumnListItem>
+                                <cells>
+                                    <ObjectStatus text="{viewModel>status}" state="{viewModel>state}" inverted="true" />
+                                    <ObjectNumber number="{viewModel>orderCount}" />
+                                    <Text text="{viewModel>percent}%" />
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+                </Panel>
+            </VBox>
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>

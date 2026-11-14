@@ -1,0 +1,140 @@
+{
+  "_version": "1.90.0",
+  "sap.app": {
+    "id": "raven.fulfillment.cockpit",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "1.0.0"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/fulfillment/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.0"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "Fulfillment-cockpit": {
+          "semanticObject": "Fulfillment",
+          "action": "cockpit",
+          "title": "{{appTitle}}",
+          "subTitle": "Warehouse Order Fulfillment",
+          "icon": "sap-icon://shipping-status"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "sap-icon://shipping-status"
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.154.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "raven.fulfillment.cockpit.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "SalesOrdersList",
+          "target": "SalesOrdersList"
+        },
+        {
+          "pattern": "SalesOrders({key}):?query:",
+          "name": "SalesOrdersObjectPage",
+          "target": "SalesOrdersObjectPage"
+        }
+      ],
+      "targets": {
+        "SalesOrdersList": {
+          "type": "Component",
+          "id": "SalesOrdersList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/SalesOrders",
+              "variantManagement": "Page",
+              "initialLoad": "Enabled",
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.SelectionFields": {
+                  "filterFields": {
+                    "status": {
+                      "filterValues": [
+                        { "operator": "EQ", "values": ["Approved"] },
+                        { "operator": "EQ", "values": ["StockConfirmed"] }
+                      ]
+                    }
+                  }
+                }
+              },
+              "navigation": {
+                "SalesOrders": {
+                  "detail": {
+                    "route": "SalesOrdersObjectPage"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "SalesOrdersObjectPage": {
+          "type": "Component",
+          "id": "SalesOrdersObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "contextPath": "/SalesOrders",
+              "editableHeaderContent": false
+            }
+          }
+        }
+      }
+    }
+  }
+}
