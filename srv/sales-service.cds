@@ -38,8 +38,8 @@ service SalesService @(path: 'sales') {
     };
 
     @restrict: [
-        { grant: 'READ',   to: ['SalesUser', 'SalesManager', 'FulfillmentManager'] },
-        { grant: 'CREATE', to: 'SalesUser' }
+        { grant: 'READ',   to: ['authenticated-user', 'SalesUser', 'SalesManager', 'FulfillmentManager'] },
+        { grant: 'CREATE', to: ['authenticated-user', 'SalesUser'] }
     ]
     entity SalesOrderItems as projection on sales.SalesOrderItems;
 

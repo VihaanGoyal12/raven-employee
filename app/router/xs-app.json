@@ -30,19 +30,19 @@
       "source": "^/salesorders/(.*)$",
       "target": "$1",
       "localDir": "resources/salesorders",
-      "authenticationType": "xsuaa"
+      "authenticationType": "none"
     },
     {
       "source": "^/fulfillmentcockpit/(.*)$",
       "target": "$1",
       "localDir": "resources/fulfillmentcockpit",
-      "authenticationType": "xsuaa"
+      "authenticationType": "none"
     },
     {
       "source": "^/fulfillmentsummary/(.*)$",
       "target": "$1",
       "localDir": "resources/fulfillmentsummary",
-      "authenticationType": "xsuaa"
+      "authenticationType": "none"
     },
     {
       "source": "^/employees/(.*)$",
