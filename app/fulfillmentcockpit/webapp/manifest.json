@@ -105,18 +105,6 @@
               "contextPath": "/SalesOrders",
               "variantManagement": "Page",
               "initialLoad": "Enabled",
-              "controlConfiguration": {
-                "@com.sap.vocabularies.UI.v1.SelectionFields": {
-                  "filterFields": {
-                    "status": {
-                      "filterValues": [
-                        { "operator": "EQ", "values": ["Approved"] },
-                        { "operator": "EQ", "values": ["StockConfirmed"] }
-                      ]
-                    }
-                  }
-                }
-              },
               "navigation": {
                 "SalesOrders": {
                   "detail": {
