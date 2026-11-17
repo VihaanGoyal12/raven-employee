@@ -36,7 +36,7 @@
                     <VBox class="sapUiTinyMargin sapUiSmallPadding" backgroundDesign="Solid" alignItems="Center">
                         <Text text="{i18n>kpiTotalOrders}" class="sapUiTinyMarginBottom" />
                         <HBox alignItems="Center">
-                            <core:Icon xmlns:core="sap.ui.core" src="sap-icon://sales-order" size="2rem" color="#0070f2" class="sapUiTinyMarginEnd" />
+                            <core:Icon src="sap-icon://sales-order" size="2rem" color="#0070f2" class="sapUiTinyMarginEnd" />
                             <Title text="{viewModel>/totalOrders}" titleStyle="H1" />
                         </HBox>
                         <Label text="Across all pipeline stages" design="Bold" class="sapUiTinyMarginTop" />
@@ -46,7 +46,7 @@
                     <VBox class="sapUiTinyMargin sapUiSmallPadding" backgroundDesign="Solid" alignItems="Center">
                         <Text text="{i18n>kpiDispatchedRate}" class="sapUiTinyMarginBottom" />
                         <HBox alignItems="Center">
-                            <core:Icon xmlns:core="sap.ui.core" src="sap-icon://shipping-status" size="2rem" color="#2b7d2b" class="sapUiTinyMarginEnd" />
+                            <core:Icon src="sap-icon://shipping-status" size="2rem" color="#2b7d2b" class="sapUiTinyMarginEnd" />
                             <Title text="{viewModel>/dispatchedRate}" titleStyle="H1" />
                         </HBox>
                         <Label text="Orders successfully fulfilled" design="Bold" class="sapUiTinyMarginTop" />
@@ -56,7 +56,7 @@
                     <VBox class="sapUiTinyMargin sapUiSmallPadding" backgroundDesign="Solid" alignItems="Center">
                         <Text text="{i18n>kpiActionable}" class="sapUiTinyMarginBottom" />
                         <HBox alignItems="Center">
-                            <core:Icon xmlns:core="sap.ui.core" src="sap-icon://action" size="2rem" color="#e9730c" class="sapUiTinyMarginEnd" />
+                            <core:Icon src="sap-icon://action" size="2rem" color="#e9730c" class="sapUiTinyMarginEnd" />
                             <Title text="{viewModel>/actionableCount}" titleStyle="H1" />
                         </HBox>
                         <Label text="Approved + Stock Confirmed" design="Bold" class="sapUiTinyMarginTop" />
@@ -66,7 +66,7 @@
                     <VBox class="sapUiTinyMargin sapUiSmallPadding" backgroundDesign="Solid" alignItems="Center">
                         <Text text="{i18n>kpiNew}" class="sapUiTinyMarginBottom" />
                         <HBox alignItems="Center">
-                            <core:Icon xmlns:core="sap.ui.core" src="sap-icon://pending" size="2rem" color="#bb0000" class="sapUiTinyMarginEnd" />
+                            <core:Icon src="sap-icon://pending" size="2rem" color="#bb0000" class="sapUiTinyMarginEnd" />
                             <Title text="{viewModel>/newCount}" titleStyle="H1" />
                         </HBox>
                         <Label text="Awaiting Manager Approval" design="Bold" class="sapUiTinyMarginTop" />

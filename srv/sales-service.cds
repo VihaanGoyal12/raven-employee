@@ -7,11 +7,11 @@ service SalesService @(path: 'sales') {
     entity Customers as projection on sales.Customers;
 
     @restrict: [
-        { grant: 'READ',          to: ['SalesUser', 'SalesManager', 'FulfillmentManager'] },
-        { grant: 'CREATE',        to: 'SalesUser' },
-        { grant: 'approveOrder',  to: 'SalesManager' },
-        { grant: 'reserveStock',  to: 'FulfillmentManager' },
-        { grant: 'dispatchOrder', to: 'FulfillmentManager' }
+        { grant: 'READ',          to: ['authenticated-user', 'SalesUser', 'SalesManager', 'FulfillmentManager'] },
+        { grant: 'CREATE',        to: ['authenticated-user', 'SalesUser'] },
+        { grant: 'approveOrder',  to: ['authenticated-user', 'SalesManager'] },
+        { grant: 'reserveStock',  to: ['authenticated-user', 'FulfillmentManager'] },
+        { grant: 'dispatchOrder', to: ['authenticated-user', 'FulfillmentManager'] }
     ]
     @odata.draft.enabled
     entity SalesOrders as projection on sales.SalesOrders {
@@ -45,9 +45,7 @@ service SalesService @(path: 'sales') {
 
     @readonly
     @cds.redirection.target: false
-    @restrict: [
-        { grant: 'READ', to: ['SalesUser', 'SalesManager', 'FulfillmentManager'] }
-    ]
+    @requires: 'authenticated-user'
     entity OrderFulfillmentSummary as select from sales.SalesOrders {
         key status,
         count(*) as orderCount : Integer
