@@ -47,7 +47,7 @@
     }
   },
   "sap.ui5": {
-    "flexEnabled": true,
+    "flexEnabled": false,
     "dependencies": {
       "minUI5Version": "1.154.0",
       "libs": {
@@ -87,6 +87,11 @@
         {
           "pattern": ":?query:",
           "name": "SalesOrdersList",
+          "target": "SalesOrdersList"
+        },
+        {
+          "pattern": "Fulfillment-cockpit:?query:",
+          "name": "SalesOrdersListCockpit",
           "target": "SalesOrdersList"
         },
         {

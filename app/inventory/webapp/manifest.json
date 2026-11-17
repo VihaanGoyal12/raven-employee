@@ -51,7 +51,7 @@
     }
   },
   "sap.ui5": {
-    "flexEnabled": true,
+    "flexEnabled": false,
     "rootView": {
       "viewName": "raven.inventory.view.Overview",
       "type": "XML",
