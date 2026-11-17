@@ -12,7 +12,8 @@ const apps = [
     { dir: 'app/salesorders/webapp', zip: 'ravensalessalesorders.zip' },
     { dir: 'app/inventory/webapp', zip: 'raveninventory.zip' },
     { dir: 'app/fulfillmentcockpit/webapp', zip: 'ravenfulfillmentcockpit.zip' },
-    { dir: 'app/fulfillmentsummary/webapp', zip: 'ravenfulfillmentsummary.zip' }
+    { dir: 'app/fulfillmentsummary/webapp', zip: 'ravenfulfillmentsummary.zip' },
+    { dir: 'app/employees/dist', zip: 'ravenemployeedirectoryemployees.zip' }
 ];
 
 for (const app of apps) {

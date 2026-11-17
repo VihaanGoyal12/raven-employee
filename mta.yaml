@@ -30,18 +30,11 @@ modules:
 
 - name: raven-employee-directory-app-content
   type: com.sap.application.content
-  path: .
+  path: resources
   requires:
   - name: raven-employee-directory-repo-host
     parameters:
       content-target: true
-  build-parameters:
-    build-result: resources
-    requires:
-    - artifacts:
-      - ravenemployeedirectoryemployees.zip
-      name: ravenemployeedirectoryemployees
-      target-path: resources/
 
 - name: ravenemployeedirectoryemployees
   type: html5
