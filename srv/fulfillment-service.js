@@ -11,9 +11,9 @@ export default cds.service.impl(async function () {
     const orderNumberCache = new Map();
 
     function resolveOrderNumber(id) {
-        if (!id) return 'SO-1001';
+        if (!id) return 'SO-001';
         if (!orderNumberCache.has(id)) {
-            const nextNum = 1001 + orderNumberCache.size;
+            const nextNum = String(1 + orderNumberCache.size).padStart(3, '0');
             orderNumberCache.set(id, `SO-${nextNum}`);
         }
         return orderNumberCache.get(id);
@@ -27,10 +27,11 @@ export default cds.service.impl(async function () {
                 SELECT.from(dbSalesOrders).columns('ID').orderBy('orderDate asc', 'ID asc')
             );
             if (allOrders && allOrders.length > 0) {
-                let startNum = 1001;
+                let startNum = 1;
                 for (const ord of allOrders) {
                     if (ord.ID && !orderNumberCache.has(ord.ID)) {
-                        orderNumberCache.set(ord.ID, `SO-${startNum++}`);
+                        const numStr = String(startNum++).padStart(3, '0');
+                        orderNumberCache.set(ord.ID, `SO-${numStr}`);
                     }
                 }
             }

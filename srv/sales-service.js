@@ -60,9 +60,9 @@ export default cds.service.impl(async function () {
     const orderNumberCache = new Map();
 
     function resolveOrderNumber(id) {
-        if (!id) return 'SO-1001';
+        if (!id) return 'SO-001';
         if (!orderNumberCache.has(id)) {
-            const nextNum = 1001 + orderNumberCache.size;
+            const nextNum = String(1 + orderNumberCache.size).padStart(3, '0');
             orderNumberCache.set(id, `SO-${nextNum}`);
         }
         return orderNumberCache.get(id);
@@ -78,24 +78,92 @@ export default cds.service.impl(async function () {
         }
     });
 
-    // Initialize clean SO-1001..SO-1006 mapping for all orders in DB on startup
+    // Initialize seed data and clean SO-001..SO-007 mapping on startup
     cds.on('served', async () => {
         try {
             const db = await cds.connect.to('db');
-            const { SalesOrders: dbSalesOrders } = db.entities('raven.sales');
+            const { SalesOrders: dbSalesOrders, SalesOrderItems: dbSalesOrderItems, Customers: dbCustomers } = db.entities('raven.sales');
+            const { StockReservations: dbStockReservations } = db.entities('raven.fulfillment');
+            const { StockItems: dbStockItems } = db.entities('raven.inventory');
+
+            // 1. Ensure Customers exist
+            if (dbCustomers) {
+                const customers = await db.run(SELECT.from(dbCustomers));
+                if (!customers || customers.length === 0) {
+                    await db.run(INSERT.into(dbCustomers).entries([
+                        { ID: '11111111-1111-4111-8111-111111111111', name: 'Acme Regular', customerType: 'Regular' },
+                        { ID: '22222222-2222-4222-8222-222222222222', name: 'Premium Corp', customerType: 'Premium' },
+                        { ID: '33333333-3333-4333-8333-333333333333', name: 'Small Business', customerType: 'Regular' }
+                    ]));
+                }
+            }
+
+            // 2. Ensure SalesOrders & SalesOrderItems exist
+            if (dbSalesOrders && dbSalesOrderItems) {
+                const existingOrders = await db.run(SELECT.from(dbSalesOrders));
+                if (!existingOrders || existingOrders.length === 0) {
+                    const seedOrders = [
+                        { ID: 'a1111111-1111-4111-8111-111111111111', customer_ID: '11111111-1111-4111-8111-111111111111', orderDate: '2026-11-01', status: 'New', grossAmount: 1200.00, discountPercent: 10.00, netAmount: 1080.00 },
+                        { ID: 'a2222222-2222-4222-8222-222222222222', customer_ID: '11111111-1111-4111-8111-111111111111', orderDate: '2026-11-02', status: 'Dispatched', grossAmount: 800.00, discountPercent: 10.00, netAmount: 720.00 },
+                        { ID: 'a3333333-3333-4333-8333-333333333333', customer_ID: '22222222-2222-4222-8222-222222222222', orderDate: '2026-11-03', status: 'Approved', grossAmount: 5000.00, discountPercent: 0.00, netAmount: 5000.00 },
+                        { ID: 'a4444444-4444-4444-8444-444444444444', customer_ID: '22222222-2222-4222-8222-222222222222', orderDate: '2026-11-04', status: 'StockConfirmed', grossAmount: 300.00, discountPercent: 0.00, netAmount: 300.00 },
+                        { ID: 'a5555555-5555-4555-8555-555555555555', customer_ID: '11111111-1111-4111-8111-111111111111', orderDate: '2026-11-05', status: 'Dispatched', grossAmount: 1500.00, discountPercent: 10.00, netAmount: 1350.00 },
+                        { ID: 'a6666666-6666-4666-8666-666666666666', customer_ID: '22222222-2222-4222-8222-222222222222', orderDate: '2026-11-06', status: 'Dispatched', grossAmount: 700.00, discountPercent: 0.00, netAmount: 700.00 },
+                        { ID: 'a7777777-7777-4777-8777-777777777777', customer_ID: '11111111-1111-4111-8111-111111111111', orderDate: '2026-11-07', status: 'Approved', grossAmount: 3000.00, discountPercent: 0.00, netAmount: 3000.00 }
+                    ];
+                    await db.run(INSERT.into(dbSalesOrders).entries(seedOrders));
+
+                    const seedItems = [
+                        { ID: 'b1111111-1111-4111-8111-111111111111', parent_ID: 'a1111111-1111-4111-8111-111111111111', product: 'Laptop', quantity: 2, unitPrice: 500.00 },
+                        { ID: 'b1111111-1111-4111-8111-111111111112', parent_ID: 'a1111111-1111-4111-8111-111111111111', product: 'Mouse', quantity: 10, unitPrice: 20.00 },
+                        { ID: 'b2222222-2222-4222-8222-222222222221', parent_ID: 'a2222222-2222-4222-8222-222222222222', product: 'Mouse', quantity: 40, unitPrice: 20.00 },
+                        { ID: 'b3333333-3333-4333-8333-333333333331', parent_ID: 'a3333333-3333-4333-8333-333333333333', product: 'Laptop', quantity: 10, unitPrice: 500.00 },
+                        { ID: 'b4444444-4444-4444-8444-444444444441', parent_ID: 'a4444444-4444-4444-8444-444444444444', product: 'Laptop', quantity: 1, unitPrice: 300.00 },
+                        { ID: 'b5555555-5555-4555-8555-555555555551', parent_ID: 'a5555555-5555-4555-8555-555555555555', product: 'Laptop', quantity: 3, unitPrice: 500.00 },
+                        { ID: 'b6666666-6666-4666-8666-666666666661', parent_ID: 'a6666666-6666-4666-8666-666666666666', product: 'Laptop', quantity: 1, unitPrice: 500.00 },
+                        { ID: 'b6666666-6666-4666-8666-666666666662', parent_ID: 'a6666666-6666-4666-8666-666666666666', product: 'Mouse', quantity: 10, unitPrice: 20.00 },
+                        { ID: 'b7777777-7777-4777-8777-777777777771', parent_ID: 'a7777777-7777-4777-8777-777777777777', product: 'Laptop', quantity: 60, unitPrice: 50.00 }
+                    ];
+                    await db.run(INSERT.into(dbSalesOrderItems).entries(seedItems));
+                }
+            }
+
+            // 3. Ensure StockReservations exists for SO-004
+            if (dbStockReservations) {
+                const existingRes = await db.run(SELECT.from(dbStockReservations));
+                if (!existingRes || existingRes.length === 0) {
+                    let stockItemId = 'a2d8bd94-09bf-49be-8ca9-943248559d93';
+                    if (dbStockItems) {
+                        const stockItem = await db.run(SELECT.one.from(dbStockItems));
+                        if (stockItem && stockItem.ID) stockItemId = stockItem.ID;
+                    }
+                    await db.run(INSERT.into(dbStockReservations).entries([
+                        {
+                            ID: 'c4444444-4444-4444-8444-444444444441',
+                            salesOrder_ID: 'a4444444-4444-4444-8444-444444444444',
+                            stockItem_ID: stockItemId,
+                            reservedQty: 1,
+                            status: 'Reserved'
+                        }
+                    ]));
+                }
+            }
+
+            // 4. Update orderNumberCache
             const allOrders = await db.run(
                 SELECT.from(dbSalesOrders).columns('ID').orderBy('orderDate asc', 'ID asc')
             );
             if (allOrders && allOrders.length > 0) {
-                let startNum = 1001;
+                let startNum = 1;
                 for (const ord of allOrders) {
-                    if (ord.ID && !orderNumberCache.has(ord.ID)) {
-                        orderNumberCache.set(ord.ID, `SO-${startNum++}`);
+                    if (ord.ID) {
+                        const numStr = String(startNum++).padStart(3, '0');
+                        orderNumberCache.set(ord.ID, `SO-${numStr}`);
                     }
                 }
             }
         } catch (e) {
-            // ignore
+            console.error('[sales-service] Error initializing seed data:', e);
         }
     });
 
