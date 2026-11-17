@@ -10,6 +10,11 @@
             height: 100%;
         }
     </style>
+    <script>
+        if (window.location.hash && window.location.hash.indexOf('(') === -1) {
+            history.replaceState(null, '', window.location.pathname + window.location.search);
+        }
+    </script>
     <script
         id="sap-ui-bootstrap"
         src="https://sapui5.hana.ondemand.com/1.154.0/resources/sap-ui-core.js"

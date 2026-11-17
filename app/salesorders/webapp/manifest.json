@@ -98,11 +98,6 @@
           "target": "SalesOrdersList"
         },
         {
-          "pattern": "SalesOrder-manage:?query:",
-          "name": "SalesOrdersListManage",
-          "target": "SalesOrdersList"
-        },
-        {
           "pattern": "SalesOrders({key}):?query:",
           "name": "SalesOrdersObjectPage",
           "target": "SalesOrdersObjectPage"

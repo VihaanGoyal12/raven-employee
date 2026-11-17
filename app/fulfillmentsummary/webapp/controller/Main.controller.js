@@ -18,44 +18,49 @@ sap.ui.define([
             });
             this.getView().setModel(oViewModel, "viewModel");
 
-            // Configure VizFrame properties
-            this._setupVizFrame();
-
             // Load fulfillment summary data
             this._loadSummaryData();
         },
 
-        _setupVizFrame: function () {
-            var oVizFrame = this.byId("statusVizFrame");
-            if (!oVizFrame) return;
+        onAfterRendering: function () {
+            this._setupVizFrame();
+        },
 
-            oVizFrame.setVizProperties({
-                plotArea: {
-                    dataLabel: {
+        _setupVizFrame: function () {
+            try {
+                var oVizFrame = this.byId("statusVizFrame");
+                if (!oVizFrame) return;
+
+                oVizFrame.setVizProperties({
+                    plotArea: {
+                        dataLabel: {
+                            visible: true
+                        },
+                        colorPalette: ["#0070f2", "#e9730c", "#2b7d2b", "#bb0000"]
+                    },
+                    title: {
+                        visible: true,
+                        text: "Order Counts by Fulfillment Status"
+                    },
+                    legend: {
                         visible: true
                     },
-                    colorPalette: ["#0070f2", "#e9730c", "#2b7d2b", "#bb0000"]
-                },
-                title: {
-                    visible: true,
-                    text: "Order Counts by Fulfillment Status"
-                },
-                legend: {
-                    visible: true
-                },
-                categoryAxis: {
-                    title: {
-                        visible: true,
-                        text: "Status"
+                    categoryAxis: {
+                        title: {
+                            visible: true,
+                            text: "Status"
+                        }
+                    },
+                    valueAxis: {
+                        title: {
+                            visible: true,
+                            text: "Number of Orders"
+                        }
                     }
-                },
-                valueAxis: {
-                    title: {
-                        visible: true,
-                        text: "Number of Orders"
-                    }
-                }
-            });
+                });
+            } catch (e) {
+                console.warn("VizFrame setup deferred:", e);
+            }
         },
 
         _loadSummaryData: function () {

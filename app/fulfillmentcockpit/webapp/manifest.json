@@ -90,11 +90,6 @@
           "target": "SalesOrdersList"
         },
         {
-          "pattern": "Fulfillment-cockpit:?query:",
-          "name": "SalesOrdersListCockpit",
-          "target": "SalesOrdersList"
-        },
-        {
           "pattern": "SalesOrders({key}):?query:",
           "name": "SalesOrdersObjectPage",
           "target": "SalesOrdersObjectPage"
