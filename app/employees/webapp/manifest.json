@@ -26,6 +26,10 @@
       }
     }
   },
+  "sap.cloud": {
+    "public": true,
+    "service": "raven-employee-directory"
+  },
   "sap.ui": {
     "technology": "UI5",
     "icons": {
