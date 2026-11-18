@@ -1,11 +1,25 @@
 import cds from '@sap/cds';
+import { ensureSeedData } from './seed-data.js';
 
 const { SELECT, INSERT, UPDATE } = cds.ql;
 
 export default cds.service.impl(async function () {
-    const { SalesOrders } = this.entities;
+    const { SalesOrders, OrderFulfillmentSummary } = this.entities;
     const { Products, StockItems } = cds.entities('raven.inventory');
     const { StockReservations } = cds.entities('raven.fulfillment');
+
+    // Run seed data initialization immediately
+    ensureSeedData();
+
+    this.before('READ', SalesOrders, async () => {
+        await ensureSeedData();
+    });
+
+    if (OrderFulfillmentSummary) {
+        this.before('READ', OrderFulfillmentSummary, async () => {
+            await ensureSeedData();
+        });
+    }
 
     // Sequential order number resolution
     const orderNumberCache = new Map();
@@ -20,10 +34,10 @@ export default cds.service.impl(async function () {
     }
 
     cds.on('served', async () => {
+        await ensureSeedData();
         try {
-            const db = await cds.connect.to('db');
-            const { SalesOrders: dbSalesOrders } = db.entities('raven.sales');
-            const allOrders = await db.run(
+            const { SalesOrders: dbSalesOrders } = cds.entities('raven.sales');
+            const allOrders = await cds.run(
                 SELECT.from(dbSalesOrders).columns('ID').orderBy('orderDate asc', 'ID asc')
             );
             if (allOrders && allOrders.length > 0) {
