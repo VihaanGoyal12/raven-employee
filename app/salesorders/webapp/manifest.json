@@ -26,7 +26,11 @@
           "action": "manage",
           "title": "{{appTitle}}",
           "subTitle": "Manage Customer Orders",
-          "icon": "sap-icon://sales-order"
+          "icon": "sap-icon://sales-order",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
         }
       }
     }

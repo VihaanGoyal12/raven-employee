@@ -25,7 +25,11 @@
           "action": "overview",
           "title": "{{appTitle}}",
           "subTitle": "Warehouse Stock Overview",
-          "icon": "sap-icon://inventory"
+          "icon": "sap-icon://inventory",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
         }
       }
     }

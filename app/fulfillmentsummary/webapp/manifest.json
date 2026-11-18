@@ -25,7 +25,11 @@
           "action": "summary",
           "title": "{{appTitle}}",
           "subTitle": "Fulfillment Analytics & KPIs",
-          "icon": "sap-icon://business-objects-experience"
+          "icon": "sap-icon://business-objects-experience",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
         }
       }
     }

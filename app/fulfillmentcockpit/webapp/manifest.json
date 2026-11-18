@@ -26,7 +26,11 @@
           "action": "cockpit",
           "title": "{{appTitle}}",
           "subTitle": "Warehouse Order Fulfillment",
-          "icon": "sap-icon://shipping-status"
+          "icon": "sap-icon://shipping-status",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
         }
       }
     }

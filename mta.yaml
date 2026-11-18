@@ -131,6 +131,16 @@ resources:
             HTML5.DynamicDestination: true
             HTML5.ForwardAuthToken: true
           existing_destinations_policy: update
+        subaccount:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: srv-api
+            ProxyType: Internet
+            Type: HTTP
+            URL: ~{srv-api/srv-url}
+            HTML5.DynamicDestination: true
+            HTML5.ForwardAuthToken: true
+          existing_destinations_policy: update
       version: 1.0.0
     service: destination
     service-name: raven-employee-directory-destination-service
