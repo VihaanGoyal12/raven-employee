@@ -14,11 +14,11 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title text="Order Fulfillment Performance" />
+                    <VBox>
+                        <Title text="Order Fulfillment Performance" level="H2" />
+                        <Text text="Real-time Order Status, Dispatch Rate and Warehouse KPIs" class="sapUiTinyMarginTop" />
+                    </VBox>
                 </f:heading>
-                <f:subHeading>
-                    <Label text="Real-time Order Status, Dispatch Rate and Warehouse KPIs" />
-                </f:subHeading>
                 <f:actions>
                     <Button
                         text="{i18n>refreshBtn}"
