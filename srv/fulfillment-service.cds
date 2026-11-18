@@ -4,11 +4,9 @@ using raven.sales as sales from '../db/sales-schema';
 service FulfillmentService @(path: 'fulfillment') {
 
     @readonly
-    @requires: 'authenticated-user'
     entity Customers as projection on sales.Customers;
 
     @readonly
-    @requires: 'authenticated-user'
     entity SalesOrders as projection on sales.SalesOrders {
         *,
         customer : redirected to Customers,
@@ -34,19 +32,14 @@ service FulfillmentService @(path: 'fulfillment') {
             else false
         end as canDispatch : Boolean
     } actions {
-        @requires: 'authenticated-user'
         action reserveStock() returns String;
-
-        @requires: 'authenticated-user'
         action dispatchOrder() returns String;
     };
 
     @readonly
-    @requires: 'authenticated-user'
     entity SalesOrderItems as projection on sales.SalesOrderItems;
 
     @readonly
-    @requires: 'authenticated-user'
     entity StockReservations as projection on fulfillment.StockReservations {
         *,
         stockItem.product.name as productName : String(100),
@@ -56,7 +49,6 @@ service FulfillmentService @(path: 'fulfillment') {
 
     @readonly
     @cds.redirection.target: false
-    @requires: 'authenticated-user'
     entity OrderFulfillmentSummary as select from sales.SalesOrders {
         key status,
         count(*) as orderCount : Integer
