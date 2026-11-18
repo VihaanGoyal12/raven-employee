@@ -10,6 +10,10 @@ if (!fs.existsSync(resDir)) {
 
 // 1. Employees (built via ui5-tooling with ui5-task-zipper)
 const empDistZip = path.join(root, 'app/employees/dist/ravenemployeedirectoryemployees.zip');
+if (!fs.existsSync(empDistZip)) {
+    console.log('Building app/employees for HTML5 packaging...');
+    execSync('npm run build:cf', { cwd: path.join(root, 'app/employees'), stdio: 'inherit' });
+}
 if (fs.existsSync(empDistZip)) {
     fs.copyFileSync(empDistZip, path.join(resDir, 'ravenemployeedirectoryemployees.zip'));
     console.log('Successfully copied ravenemployeedirectoryemployees.zip');
