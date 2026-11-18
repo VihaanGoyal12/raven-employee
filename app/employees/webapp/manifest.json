@@ -24,6 +24,17 @@
           "odataVersion": "4.0"
         }
       }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "Employee-manage": {
+          "semanticObject": "Employee",
+          "action": "manage",
+          "title": "{{appTitle}}",
+          "subTitle": "Employee Directory",
+          "icon": "sap-icon://employee"
+        }
+      }
     }
   },
   "sap.cloud": {

@@ -8,12 +8,19 @@ if (!fs.existsSync(resDir)) {
     fs.mkdirSync(resDir, { recursive: true });
 }
 
+// 1. Employees (built via ui5-tooling with ui5-task-zipper)
+const empDistZip = path.join(root, 'app/employees/dist/ravenemployeedirectoryemployees.zip');
+if (fs.existsSync(empDistZip)) {
+    fs.copyFileSync(empDistZip, path.join(resDir, 'ravenemployeedirectoryemployees.zip'));
+    console.log('Successfully copied ravenemployeedirectoryemployees.zip');
+}
+
+// 2. Capstone Apps (packaged directly with webapp contents at root)
 const apps = [
     { dir: 'app/salesorders/webapp', zip: 'ravensalessalesorders.zip' },
     { dir: 'app/inventory/webapp', zip: 'raveninventory.zip' },
     { dir: 'app/fulfillmentcockpit/webapp', zip: 'ravenfulfillmentcockpit.zip' },
-    { dir: 'app/fulfillmentsummary/webapp', zip: 'ravenfulfillmentsummary.zip' },
-    { dir: 'app/employees/dist', zip: 'ravenemployeedirectoryemployees.zip' }
+    { dir: 'app/fulfillmentsummary/webapp', zip: 'ravenfulfillmentsummary.zip' }
 ];
 
 for (const app of apps) {
