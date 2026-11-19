@@ -66,6 +66,8 @@ modules:
           sap.cloud.service: raven-employee-directory
         - Name: srv-api
           Authentication: NoAuthentication
+          ProxyType: Internet
+          Type: HTTP
           URL: ~{srv-api/srv-url}
           sap.cloud.service: raven-employee-directory
           HTML5.DynamicDestination: true
