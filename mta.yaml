@@ -50,7 +50,6 @@ modules:
     parameters:
       service-key:
         name: raven-employee-directory-auth-key
-  - name: srv-api
   parameters:
     content:
       subaccount:
@@ -64,14 +63,6 @@ modules:
           ServiceInstanceName: raven-employee-directory-auth
           ServiceKeyName: raven-employee-directory-auth-key
           sap.cloud.service: raven-employee-directory
-        - Name: srv-api
-          Authentication: NoAuthentication
-          ProxyType: Internet
-          Type: HTTP
-          URL: ~{srv-api/srv-url}
-          sap.cloud.service: raven-employee-directory
-          HTML5.DynamicDestination: true
-          HTML5.ForwardAuthToken: true
         existing_destinations_policy: update
   build-parameters:
     no-source: true
