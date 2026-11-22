@@ -82,7 +82,7 @@
                         $orderby: 'orderDate desc'
                     }
                 }"
-                itemPress=".onItemPress"
+                
                 selectionChange=".onSelectionChange"
                 growing="true"
                 growingThreshold="20">

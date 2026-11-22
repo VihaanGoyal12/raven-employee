@@ -7,260 +7,138 @@
     xmlns:core="sap.ui.core"
     displayBlock="true">
 
-    <f:DynamicPage id="detailPage" headerExpanded="true">
+    <Page
+        id="detailPage"
+        title="{parts: [{path: 'orderNumber'}], formatter: '.formatOrderTitle'}"
+        showNavButton="true"
+        navButtonPress=".onNavBack">
 
-        <!-- Object Page Header — matches PDF Pages 4 and 9 -->
-        <f:title>
-            <f:DynamicPageTitle>
-                <f:navigationActions>
-                    <OverflowToolbarButton
-                        icon="sap-icon://nav-back"
-                        tooltip="Back to List"
-                        press=".onNavBack" />
-                </f:navigationActions>
-                <f:heading>
-                    <ObjectStatus
-                        id="pageStatus"
-                        text="{status}"
-                        state="{parts: [{path: 'status'}], formatter: '.formatStatusState'}"
-                        icon="{parts: [{path: 'status'}], formatter: '.formatStatusIcon'}"
-                        inverted="true" />
-                </f:heading>
-                <f:expandedHeading>
-                    <VBox>
-                        <Title
-                            text="{parts: [{path: 'orderNumber'}], formatter: '.formatOrderTitle'}"
-                            level="H2" />
-                        <ObjectStatus
-                            text="{status}"
-                            state="{parts: [{path: 'status'}], formatter: '.formatStatusState'}"
-                            icon="{parts: [{path: 'status'}], formatter: '.formatStatusIcon'}" />
-                    </VBox>
-                </f:expandedHeading>
-                <f:actions>
-                    <Button
-                        id="btnSendToHoD"
-                        text="Send to HoD for Approval"
-                        type="Emphasized"
-                        press=".onSendToHoD"
-                        visible="{parts: [{path: 'status'}], formatter: '.canSendToHoD'}" />
-                    <Button
-                        text="Edit"
-                        type="Transparent"
-                        press=".onEdit"
-                        visible="{parts: [{path: 'status'}], formatter: '.canEdit'}" />
-                    <Button
-                        text="Delete"
-                        type="Transparent"
-                        press=".onDelete" />
-                </f:actions>
-            </f:DynamicPageTitle>
-        </f:title>
+        <headerContent>
+            <ObjectStatus
+                text="{status}"
+                state="{parts: [{path: 'status'}], formatter: '.formatStatusState'}"
+                icon="{parts: [{path: 'status'}], formatter: '.formatStatusIcon'}"
+                class="sapUiSmallMarginEnd" />
+            <Button
+                text="Send to HoD for Approval"
+                type="Emphasized"
+                press=".onSendToHoD"
+                visible="{parts: [{path: 'status'}], formatter: '.canSendToHoD'}" />
+            <Button
+                text="Approve"
+                type="Accept"
+                press=".onApprove"
+                visible="{parts: [{path: 'status'}], formatter: '.canEdit'}" />
+        </headerContent>
 
-        <!-- KPI Header — Gross / Discount / Net (PDF Pages 4 and 9) -->
-        <f:header>
-            <f:DynamicPageHeader pinnable="true">
-                <HBox alignItems="Start" wrap="Wrap" class="sapUiSmallMarginTop">
-                    <VBox class="sapUiLargeMarginEnd">
-                        <Label text="Order Number" />
-                        <Title text="{orderNumber}" level="H4" />
-                    </VBox>
-                    <VBox class="sapUiLargeMarginEnd">
-                        <Label text="Customer" />
-                        <Title text="{customer/name}" level="H4" />
-                    </VBox>
-                    <VBox class="sapUiLargeMarginEnd">
-                        <Label text="Customer Type" />
-                        <ObjectStatus
-                            text="{customer/customerType}"
-                            state="{parts: [{path: 'customer/customerType'}], formatter: '.formatTypeState'}" />
-                    </VBox>
-                    <VBox class="sapUiLargeMarginEnd">
-                        <Label text="Order Date" />
-                        <Title text="{orderDate}" level="H4" />
-                    </VBox>
-                </HBox>
-                <HBox alignItems="Start" wrap="Wrap" class="sapUiSmallMarginTop sapUiLargeMarginBottom">
-                    <!-- KPI Boxes matching PDF -->
-                    <FlexBox direction="Column" class="sapUiLargeMarginEnd" alignItems="Center">
-                        <ObjectNumber
-                            number="{parts: [{path: 'grossAmount'}], formatter: '.formatAmount'}"
-                            unit="INR"
-                            emphasized="true"
-                            class="sapUiTinyMarginBottom" />
-                        <Label text="Gross Amount" />
-                    </FlexBox>
-                    <FlexBox direction="Column" class="sapUiLargeMarginEnd" alignItems="Center">
-                        <ObjectNumber
-                            number="{parts: [{path: 'discountPercent'}], formatter: '.formatPercent'}"
-                            unit="%"
-                            emphasized="true"
-                            class="sapUiTinyMarginBottom" />
-                        <Label text="Discount (HANA Procedure)" />
-                    </FlexBox>
-                    <FlexBox direction="Column" class="sapUiLargeMarginEnd" alignItems="Center">
-                        <ObjectNumber
-                            number="{parts: [{path: 'netAmount'}], formatter: '.formatAmount'}"
-                            unit="INR"
-                            emphasized="true"
-                            state="{parts: [{path: 'status'}], formatter: '.formatStatusState'}"
-                            class="sapUiTinyMarginBottom" />
-                        <Label text="Net Amount" />
-                    </FlexBox>
-                </HBox>
-            </f:DynamicPageHeader>
-        </f:header>
+        <content>
+            <VBox class="sapUiResponsiveMargin">
 
-        <f:content>
-            <VBox class="sapUiSmallMargin">
-
-                <!-- Section tabs -->
-                <IconTabBar id="detailTabBar" selectedKey="general" class="sapUiSmallMarginBottom">
-                    <items>
-                        <IconTabFilter key="general" text="General Information" icon="sap-icon://detail-view" />
-                        <IconTabFilter key="items" text="Items" icon="sap-icon://list" />
-                        <IconTabFilter key="workflow" text="Approval History" icon="sap-icon://process" />
-                    </items>
-                </IconTabBar>
-
-                <!-- General Information Section — matches PDF Pages 4-5 -->
-                <Panel id="generalPanel" headerText="Order Details" class="sapUiResponsiveMargin" expandable="false">
-                    <form:SimpleForm
-                        layout="ResponsiveGridLayout"
-                        labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12"
-                        adjustLabelSpan="false"
-                        emptySpanXL="4" emptySpanL="4" emptySpanM="4"
-                        columnsXL="2" columnsL="2" columnsM="1"
-                        singleContainerFullSize="false">
-                        <form:content>
-                            <Label text="Order Number" />
-                            <Text text="{orderNumber}" />
-
-                            <Label text="Customer Name" />
-                            <Text text="{customer/name}" />
-
-                            <Label text="Customer Type" />
-                            <ObjectStatus
-                                text="{customer/customerType}"
-                                state="{parts: [{path: 'customer/customerType'}], formatter: '.formatTypeState'}" />
-
-                            <Label text="Order Date" />
-                            <Text text="{orderDate}" />
-
-                            <Label text="Gross Amount (INR)" />
+                <!-- Header KPI Summary Card -->
+                <Panel headerText="Financial Overview" class="sapUiSmallMarginBottom">
+                    <HBox justifyContent="SpaceAround" class="sapUiSmallMargin">
+                        <VBox alignItems="Center">
+                            <Label text="Gross Amount" />
                             <ObjectNumber
                                 number="{parts: [{path: 'grossAmount'}], formatter: '.formatAmount'}"
-                                unit="INR" />
-
-                            <Label text="Discount %" />
+                                unit="USD"
+                                emphasized="true" />
+                        </VBox>
+                        <VBox alignItems="Center">
+                            <Label text="Discount" />
                             <ObjectNumber
                                 number="{parts: [{path: 'discountPercent'}], formatter: '.formatPercent'}"
-                                unit="%" />
-
-                            <Label text="Net Amount (INR)" />
+                                unit="%"
+                                state="Information" />
+                        </VBox>
+                        <VBox alignItems="Center">
+                            <Label text="Net Amount" />
                             <ObjectNumber
                                 number="{parts: [{path: 'netAmount'}], formatter: '.formatAmount'}"
-                                unit="INR" />
+                                unit="USD"
+                                emphasized="true"
+                                state="{parts: [{path: 'status'}], formatter: '.formatStatusState'}" />
+                        </VBox>
+                    </HBox>
+                </Panel>
 
+                <!-- Order & Customer Details -->
+                <Panel headerText="Order &amp; Customer Information" class="sapUiSmallMarginBottom" expandable="true" expanded="true">
+                    <form:SimpleForm
+                        editable="false"
+                        layout="ResponsiveGridLayout"
+                        labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12">
+                        <form:content>
+                            <core:Title text="Order Details" />
+                            <Label text="Order Number" />
+                            <Text text="{orderNumber}" />
+                            <Label text="Order Date" />
+                            <Text text="{parts: [{path: 'orderDate'}], formatter: '.formatDate'}" />
                             <Label text="Requested By" />
                             <Text text="{requestedBy}" />
-
                             <Label text="Workflow Status" />
                             <ObjectStatus
                                 text="{status}"
                                 state="{parts: [{path: 'status'}], formatter: '.formatStatusState'}"
                                 icon="{parts: [{path: 'status'}], formatter: '.formatStatusIcon'}" />
+
+                            <core:Title text="Customer Details" />
+                            <Label text="Customer Name" />
+                            <Text text="{customer/name}" />
+                            <Label text="Customer Type" />
+                            <ObjectStatus
+                                text="{customer/customerType}"
+                                state="{parts: [{path: 'customer/customerType'}], formatter: '.formatTypeState'}" />
                         </form:content>
                     </form:SimpleForm>
                 </Panel>
 
-                <!-- Approval Comments Section — visible when workflow started -->
-                <Panel
-                    id="commentsPanel"
-                    headerText="Approval Comments"
-                    class="sapUiResponsiveMargin"
-                    expandable="true"
-                    visible="{parts: [{path: 'hodComment'}, {path: 'financeComment'}], formatter: '.hasComments'}">
-                    <form:SimpleForm
-                        layout="ResponsiveGridLayout"
-                        labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12"
-                        adjustLabelSpan="false"
-                        emptySpanXL="4" emptySpanL="4" emptySpanM="4"
-                        columnsXL="1" columnsL="1" columnsM="1">
-                        <form:content>
-                            <Label text="HoD Comment" />
-                            <Text text="{hodComment}" />
-
-                            <Label text="Finance Department Comment" />
-                            <Text text="{financeComment}" />
-
-                            <Label text="Workflow Instance ID" />
-                            <Text text="{workflowInstanceId}" />
-                        </form:content>
-                    </form:SimpleForm>
-                </Panel>
-
-                <!-- Items Table — matches PDF Page 5 -->
-                <Panel id="itemsPanel" headerText="Order Items" class="sapUiResponsiveMargin" expandable="false">
-                    <Table
-                        id="itemsTable"
-                        items="{items}">
-                        <headerToolbar>
-                            <OverflowToolbar>
-                                <Title text="Items" level="H4" />
-                                <ToolbarSpacer />
-                                <Button
-                                    text="Add Item"
-                                    type="Transparent"
-                                    press=".onAddItem"
-                                    icon="sap-icon://add"
-                                    visible="{parts: [{path: 'status'}], formatter: '.canEdit'}" />
-                            </OverflowToolbar>
-                        </headerToolbar>
+                <!-- Line Items Table -->
+                <Panel headerText="Order Items" class="sapUiSmallMarginBottom" expandable="true" expanded="true">
+                    <Table items="{items}" noDataText="No line items available.">
                         <columns>
                             <Column><Text text="Product" /></Column>
                             <Column hAlign="End"><Text text="Quantity" /></Column>
-                            <Column hAlign="End"><Text text="Unit Price (INR)" /></Column>
-                            <Column hAlign="End"><Text text="Line Total (INR)" /></Column>
+                            <Column hAlign="End"><Text text="Unit Price (USD)" /></Column>
+                            <Column hAlign="End"><Text text="Total (USD)" /></Column>
                         </columns>
                         <items>
                             <ColumnListItem>
                                 <cells>
-                                    <ObjectIdentifier title="{product}" />
-                                    <ObjectNumber number="{quantity}" />
+                                    <Text text="{product}" />
+                                    <Text text="{quantity}" />
                                     <ObjectNumber
                                         number="{parts: [{path: 'unitPrice'}], formatter: '.formatAmount'}"
-                                        unit="INR" />
+                                        unit="USD" />
                                     <ObjectNumber
                                         number="{parts: [{path: 'quantity'}, {path: 'unitPrice'}], formatter: '.formatLineTotal'}"
-                                        unit="INR" />
+                                        unit="USD" />
                                 </cells>
                             </ColumnListItem>
                         </items>
-                        <noData>
-                            <Text text="No items added." />
-                        </noData>
                     </Table>
                 </Panel>
 
-                <!-- Approval History / Workflow Section -->
-                <Panel id="workflowPanel" headerText="Approval Workflow History" class="sapUiResponsiveMargin" expandable="true">
-                    <VBox class="sapUiSmallMargin">
-                        <VBox class="sapUiSmallMargin">
-                            <HBox alignItems="Center">
-                                <core:Icon src="sap-icon://create" class="sapUiTinyMarginEnd" />
-                                <Text text="Order Created on {orderDate} by {requestedBy}" />
-                            </HBox>
-                        </VBox>
-                        <Text
-                            text="Full workflow history is tracked in SAP Build Process Automation."
-                            class="sapUiSmallMarginTop sapUiSmallText" />
-                    </VBox>
+                <!-- Comments Section -->
+                <Panel
+                    headerText="Approval Comments"
+                    expandable="true"
+                    expanded="true"
+                    visible="{parts: [{path: 'hodComment'}, {path: 'financeComment'}], formatter: '.hasComments'}">
+                    <form:SimpleForm
+                        editable="false"
+                        layout="ResponsiveGridLayout"
+                        labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12">
+                        <form:content>
+                            <Label text="HoD Comments" visible="{= !!${hodComment} }" />
+                            <Text text="{hodComment}" visible="{= !!${hodComment} }" />
+                            <Label text="Finance Comments" visible="{= !!${financeComment} }" />
+                            <Text text="{financeComment}" visible="{= !!${financeComment} }" />
+                        </form:content>
+                    </form:SimpleForm>
                 </Panel>
 
             </VBox>
-        </f:content>
-
-    </f:DynamicPage>
-
+        </content>
+    </Page>
 </mvc:View>
