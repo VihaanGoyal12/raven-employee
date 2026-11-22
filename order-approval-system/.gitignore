@@ -1,0 +1,7 @@
+node_modules/
+gen/
+dist/
+mta_archives/
+.order-approval-system_mta_build_tmp/
+db.sqlite
+*.tmp

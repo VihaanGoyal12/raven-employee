@@ -14,6 +14,7 @@ build-parameters:
         - npx cds build --production
         - npm install --prefix gen/srv --omit=dev
         - npm install --prefix gen/db
+        - node scripts/package-app.js
 
 modules:
 
@@ -76,7 +77,7 @@ modules:
     type: html5
     path: app/salesorders
     build-parameters:
-      build-result: webapp
+      build-result: dist
       builder: custom
       commands: []
       supported-platforms: []
@@ -84,18 +85,11 @@ modules:
   # ─── HTML5 Content Deployer ──────────────────────────────────────────────────
   - name: order-approval-app-content
     type: com.sap.application.content
-    path: .
+    path: resources
     requires:
       - name: order-approval-html5-service
         parameters:
           content-target: true
-    build-parameters:
-      build-result: resources
-      requires:
-        - artifacts:
-            - orderapprovalsalesorders.zip
-          name: orderapprovalsalesorders
-          target-path: resources/
 
   # ─── Destination Content ─────────────────────────────────────────────────────
   - name: order-approval-destination-content
