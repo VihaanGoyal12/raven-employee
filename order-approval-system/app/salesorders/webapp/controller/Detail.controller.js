@@ -1,8 +1,9 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/m/MessageToast",
-    "sap/m/MessageBox"
-], function (Controller, MessageToast, MessageBox) {
+    "sap/m/MessageBox",
+    "sap/ui/core/routing/History"
+], function (Controller, MessageToast, MessageBox, History) {
     "use strict";
 
     return Controller.extend("orderapproval.salesorders.controller.Detail", {
@@ -14,21 +15,11 @@ sap.ui.define([
 
         _onObjectMatched: function (oEvent) {
             const sOrderId = decodeURIComponent(oEvent.getParameter("arguments").orderId);
-            this.getView().bindElement({
+            const oView = this.getView();
+            oView.bindElement({
                 path: "/SalesOrders(" + sOrderId + ")",
-                parameters: { $expand: "customer,items" },
-                events: {
-                    dataReceived: this._onDataReceived.bind(this)
-                }
+                parameters: { $expand: "customer,items" }
             });
-        },
-
-        _onDataReceived: function (oEvent) { return; // disabled
-            const oData = oEvent.getParameter("data");
-            if (!oData) {
-                MessageBox.error("Order not found.");
-                this.onNavBack();
-            }
         },
 
         // ─── Formatters ────────────────────────────────────────────────────────
@@ -38,18 +29,23 @@ sap.ui.define([
         },
 
         formatAmount: function (fVal) {
-            if (fVal === null || fVal === undefined) return "0.00";
-            return Number(fVal).toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            if (fVal == null || fVal === undefined) return "0.00 USD";
+            return parseFloat(fVal).toFixed(2) + " USD";
         },
 
         formatPercent: function (fVal) {
-            if (fVal === null || fVal === undefined) return "0.00";
-            return Number(fVal).toFixed(2);
+            if (fVal == null || fVal === undefined) return "0.00 %";
+            return parseFloat(fVal).toFixed(2) + " %";
         },
 
-        formatLineTotal: function (iQty, fPrice) {
-            if (!iQty || !fPrice) return "0.00";
-            return Number(iQty * fPrice).toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        formatDate: function (sDate) {
+            if (!sDate) return "";
+            try {
+                const oDate = new Date(sDate);
+                return oDate.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+            } catch (e) {
+                return sDate;
+            }
         },
 
         formatStatusState: function (sStatus) {
@@ -73,85 +69,59 @@ sap.ui.define([
         },
 
         formatTypeState: function (sType) {
-            return sType === "Premium" ? "Warning" : "Information";
-        },
-
-        canSendToHoD: function (sStatus) {
-            return sStatus === "New" || sStatus === "Rejected";
-        },
-
-        canEdit: function (sStatus) {
-            return sStatus === "New";
-        },
-
-        hasComments: function (sHodComment, sFinanceComment) {
-            return !!(sHodComment || sFinanceComment);
+            switch (sType) {
+                case "Enterprise": return "Success";
+                case "Premium":    return "Information";
+                default:           return "None";
+            }
         },
 
         // ─── Actions ───────────────────────────────────────────────────────────
 
         onNavBack: function () {
-            this.getOwnerComponent().getRouter().navTo("List");
+            const oHistory = History.getInstance();
+            const sPreviousHash = oHistory.getPreviousHash();
+            if (sPreviousHash !== undefined) {
+                window.history.go(-1);
+            } else {
+                this.getOwnerComponent().getRouter().navTo("List", {}, true);
+            }
+        },
+
+        onApprove: function () {
+            const oContext = this.getView().getBindingContext();
+            const sOrderId = oContext.getProperty("ID");
+            const oModel = this.getView().getModel();
+            const oOperation = oModel.bindContext(
+                "/SalesOrders(" + sOrderId + ")/SalesService.approve(...)"
+            );
+
+            oOperation.execute().then(function () {
+                MessageToast.show("Order approved successfully!");
+                oModel.refresh();
+            }).catch(function (oError) {
+                MessageBox.error("Approval failed: " + (oError.message || String(oError)));
+            });
         },
 
         onSendToHoD: function () {
-            const oCtx = this.getView().getBindingContext();
-            if (!oCtx) return;
-            const oOrder = oCtx.getObject();
-            MessageBox.confirm(
-                "Send order '" + oOrder.orderNumber + "' to the Head of Department for approval?",
-                {
-                    onClose: function (sAction) {
-                        if (sAction === MessageBox.Action.OK) {
-                            this._doSendToHoD(oOrder.ID, oOrder.orderNumber);
-                        }
-                    }.bind(this)
-                }
-            );
-        },
-
-        _doSendToHoD: function (sOrderId, sOrderNumber) {
+            const oContext = this.getView().getBindingContext();
+            const sOrderId = oContext.getProperty("ID");
+            const sOrderNumber = oContext.getProperty("orderNumber");
             const oModel = this.getView().getModel();
+
             const oOperation = oModel.bindContext(
                 "/SalesOrders(" + sOrderId + ")/SalesService.sendToHoDForApproval(...)"
             );
-            MessageToast.show("Submitting to BPA workflow...");
+
+            MessageToast.show("Sending to HoD for approval...");
             oOperation.execute().then(function (oResult) {
-                MessageBox.success(
-                    "Order '" + sOrderNumber + "' sent to HoD for approval.\n\n" +
-                    "Workflow Instance ID: " + (oResult?.workflowInstanceId || "N/A") + "\n\n" +
-                    "The approver will receive a task in SAP Build Process Automation."
-                );
+                MessageBox.success("Order " + sOrderNumber + " sent to HoD.\nWorkflow Instance: " + (oResult?.workflowInstanceId || "N/A"));
                 oModel.refresh();
             }).catch(function (oError) {
-                MessageBox.error("Failed to start workflow.\n\n" + (oError.message || String(oError)));
+                MessageBox.error("Failed: " + (oError.message || String(oError)));
             });
-        },
-
-        onEdit: function () {
-            MessageToast.show("Edit mode — available for 'New' status orders.");
-        },
-
-        onDelete: function () {
-            const oCtx = this.getView().getBindingContext();
-            if (!oCtx) return;
-            const sOrderNumber = oCtx.getProperty("orderNumber");
-            MessageBox.confirm("Delete order '" + sOrderNumber + "'? This cannot be undone.", {
-                onClose: function (sAction) {
-                    if (sAction === MessageBox.Action.OK) {
-                        oCtx.delete().then(function () {
-                            MessageToast.show("Order deleted.");
-                            this.onNavBack();
-                        }.bind(this)).catch(function (oError) {
-                            MessageBox.error("Failed to delete: " + oError.message);
-                        });
-                    }
-                }.bind(this)
-            });
-        },
-
-        onAddItem: function () {
-            MessageToast.show("Add item — available in edit mode.");
         }
+
     });
 });
