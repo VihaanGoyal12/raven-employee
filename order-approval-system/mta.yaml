@@ -80,7 +80,7 @@ modules:
       builder: custom
       commands:
         - npm install
-        - mkdir -p dist && cp -r webapp/* dist/
+        - bash -c 'mkdir -p dist && cp -r webapp/* dist/'
       supported-platforms: []
 
   # ─── HTML5 Content Deployer ──────────────────────────────────────────────────
