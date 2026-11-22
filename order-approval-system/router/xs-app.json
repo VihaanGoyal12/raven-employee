@@ -10,20 +10,21 @@
       "source": "^/sales/(.*)$",
       "target": "/sales/$1",
       "destination": "srv-api",
-      "authenticationType": "xsuaa",
+      "authenticationType": "none",
       "csrfProtection": false
     },
     {
-      "source": "^/index.html$",
-      "target": "/index.html",
-      "service": "html5-apps-repo-rt",
-      "authenticationType": "xsuaa"
+      "source": "^/odata/v4/sales/(.*)$",
+      "target": "/odata/v4/sales/$1",
+      "destination": "srv-api",
+      "authenticationType": "none",
+      "csrfProtection": false
     },
     {
-      "source": "^(.*)$",
+      "source": "^/(.*)$",
       "target": "$1",
-      "service": "html5-apps-repo-rt",
-      "authenticationType": "xsuaa"
+      "localDir": "resources",
+      "authenticationType": "none"
     }
   ]
 }

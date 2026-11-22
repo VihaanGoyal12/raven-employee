@@ -61,14 +61,14 @@ modules:
       disk-quota: 256M
       memory: 128M
     requires:
-      - name: order-approval-xsuaa
-      - name: order-approval-destination-service
-      - name: order-approval-html5-service
+      - name: srv-api
         group: destinations
         properties:
-          forwardAuthToken: false
-          name: ui5
-          url: https://ui5.sap.com
+          forwardAuthToken: true
+          name: srv-api
+          url: ~{srv-url}
+      - name: order-approval-xsuaa
+      - name: order-approval-destination-service
     build-parameters:
       builder: npm
 

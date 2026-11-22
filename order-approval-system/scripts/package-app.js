@@ -6,9 +6,11 @@ const root = process.cwd();
 const resDir = path.join(root, 'resources');
 const distDir = path.join(root, 'app/salesorders/dist');
 const webappDir = path.join(root, 'app/salesorders/webapp');
+const routerResDir = path.join(root, 'router/resources');
 
 fs.mkdirSync(resDir, { recursive: true });
 fs.mkdirSync(distDir, { recursive: true });
+fs.mkdirSync(routerResDir, { recursive: true });
 
 // Clean rogue files/folders if present from earlier failed attempts
 for (const rogue of ['*', '&&', '-r', 'cp']) {
@@ -18,7 +20,7 @@ for (const rogue of ['*', '&&', '-r', 'cp']) {
   if (fs.existsSync(p2)) fs.rmSync(p2, { recursive: true, force: true });
 }
 
-// Create zip in dist and copy to resources
+// 1. Create zip for HTML5 repo deployer
 const zipInDist = path.join(distDir, 'orderapprovalsalesorders.zip');
 const zipInRes = path.join(resDir, 'orderapprovalsalesorders.zip');
 
@@ -27,4 +29,8 @@ if (fs.existsSync(zipInRes)) fs.unlinkSync(zipInRes);
 
 execSync(`zip -r "${zipInDist}" .`, { cwd: webappDir, stdio: 'inherit' });
 fs.copyFileSync(zipInDist, zipInRes);
-console.log('Successfully packaged orderapprovalsalesorders.zip into dist/ and resources/');
+
+// 2. Copy webapp files into router/resources for reliable localDir serving
+fs.cpSync(webappDir, routerResDir, { recursive: true });
+
+console.log('Successfully packaged orderapprovalsalesorders.zip and populated router/resources');
