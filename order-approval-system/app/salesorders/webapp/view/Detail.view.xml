@@ -246,14 +246,12 @@
                 <!-- Approval History / Workflow Section -->
                 <Panel id="workflowPanel" headerText="Approval Workflow History" class="sapUiResponsiveMargin" expandable="true">
                     <VBox class="sapUiSmallMargin">
-                        <Timeline id="approvalTimeline">
-                            <TimelineItem
-                                title="Order Created"
-                                dateTime="{orderDate}"
-                                icon="sap-icon://create"
-                                userName="{requestedBy}"
-                                text="Order submitted for approval." />
-                        </Timeline>
+                        <VBox class="sapUiSmallMargin">
+                            <HBox alignItems="Center">
+                                <core:Icon src="sap-icon://create" class="sapUiTinyMarginEnd" />
+                                <Text text="Order Created on {orderDate} by {requestedBy}" />
+                            </HBox>
+                        </VBox>
                         <Text
                             text="Full workflow history is tracked in SAP Build Process Automation."
                             class="sapUiSmallMarginTop sapUiSmallText" />
