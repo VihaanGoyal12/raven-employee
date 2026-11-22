@@ -58,7 +58,7 @@ modules:
     path: router
     parameters:
       keep-existing-routes: true
-      disk-quota: 256M
+      disk-quota: 512M
       memory: 128M
     requires:
       - name: srv-api
