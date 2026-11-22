@@ -1,0 +1,9 @@
+<mvc:View
+    controllerName="orderapproval.salesorders.controller.App"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    displayBlock="true">
+    <Shell>
+        <App id="appRoot" />
+    </Shell>
+</mvc:View>

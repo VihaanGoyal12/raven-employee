@@ -1,0 +1,15 @@
+{
+  "name": "orderapprovalsalesorders",
+  "version": "1.0.0",
+  "description": "SAP Order Approval Sales Orders UI5 App",
+  "scripts": {
+    "start": "ui5 serve",
+    "build": "ui5 build --all --dest dist --clean-dest"
+  },
+  "devDependencies": {
+    "@ui5/cli": "^4.0.0"
+  },
+  "ui5": {
+    "dependencies": []
+  }
+}

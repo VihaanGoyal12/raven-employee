@@ -1,0 +1,32 @@
+{
+  "xsappname": "order-approval-system",
+  "tenant-mode": "dedicated",
+  "description": "Security profile of Order Approval System",
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.SalesUser",
+      "description": "Sales User Scope"
+    },
+    {
+      "name": "$XSAPPNAME.SalesManager",
+      "description": "Sales Manager Scope"
+    }
+  ],
+  "role-templates": [
+    {
+      "name": "SalesUserRole",
+      "description": "Sales User Role",
+      "scope-references": [
+        "$XSAPPNAME.SalesUser"
+      ]
+    },
+    {
+      "name": "SalesManagerRole",
+      "description": "Sales Manager Role",
+      "scope-references": [
+        "$XSAPPNAME.SalesUser",
+        "$XSAPPNAME.SalesManager"
+      ]
+    }
+  ]
+}

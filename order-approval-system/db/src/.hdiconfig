@@ -1,0 +1,7 @@
+{
+  "file_types": {
+    "hdbprocedure": {
+      "plugin_name": "com.sap.hana.di.procedure"
+    }
+  }
+}

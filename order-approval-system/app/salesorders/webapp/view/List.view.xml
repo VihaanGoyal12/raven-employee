@@ -1,0 +1,170 @@
+<mvc:View
+    controllerName="orderapproval.salesorders.controller.List"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:core="sap.ui.core"
+    xmlns:table="sap.ui.table"
+    displayBlock="true">
+
+    <f:DynamicPage id="listPage" headerExpanded="true" toggleHeaderOnTitleClick="true">
+
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="Sales Orders" level="H2" />
+                </f:heading>
+                <f:actions>
+                    <Button text="Create" type="Emphasized" press=".onCreateOrder" icon="sap-icon://add" />
+                    <Button text="Delete" type="Transparent" press=".onDeleteOrder" icon="sap-icon://delete" enabled="{= !!${listPage>/selectedOrder} }" />
+                    <OverflowToolbarButton icon="sap-icon://action-settings" tooltip="Table Settings" />
+                </f:actions>
+                <f:navigationActions>
+                    <OverflowToolbarButton icon="sap-icon://full-screen" tooltip="Full Screen" />
+                    <OverflowToolbarButton icon="sap-icon://exit-full-screen" tooltip="Exit Full Screen" />
+                </f:navigationActions>
+            </f:DynamicPageTitle>
+        </f:title>
+
+        <f:header>
+            <f:DynamicPageHeader pinnable="true">
+                <!-- Filter Bar matching PDF Page 3 -->
+                <HBox alignItems="End" wrap="Wrap" class="sapUiSmallMarginBottom sapUiSmallMarginTop">
+                    <VBox class="sapUiTinyMarginEnd">
+                        <Label text="Search" />
+                        <SearchField
+                            id="searchField"
+                            search=".onSearch"
+                            width="220px"
+                            placeholder="Search orders..." />
+                    </VBox>
+                    <VBox class="sapUiTinyMarginEnd">
+                        <Label text="Editing Status" />
+                        <Select id="filterEditingStatus" width="160px" change=".onFilterChange">
+                            <core:Item key="All" text="All" />
+                            <core:Item key="New" text="New" />
+                            <core:Item key="PendingApproval" text="Pending Approval" />
+                            <core:Item key="InFinanceReview" text="In Finance Review" />
+                            <core:Item key="Approved" text="Approved" />
+                            <core:Item key="Rejected" text="Rejected" />
+                        </Select>
+                    </VBox>
+                    <VBox class="sapUiTinyMarginEnd">
+                        <Label text="Customer" />
+                        <Input id="filterCustomer" width="180px" submit=".onFilterChange" placeholder="Filter by customer" />
+                    </VBox>
+                    <VBox class="sapUiTinyMarginEnd">
+                        <Label text="Type" />
+                        <Select id="filterType" width="140px" change=".onFilterChange">
+                            <core:Item key="" text="All" />
+                            <core:Item key="Premium" text="Premium" />
+                            <core:Item key="Regular" text="Regular" />
+                        </Select>
+                    </VBox>
+                    <VBox class="sapUiTinyMarginEnd sapUiMediumMarginTop">
+                        <Button text="Go" type="Emphasized" press=".onFilterChange" />
+                    </VBox>
+                    <VBox class="sapUiTinyMarginEnd sapUiMediumMarginTop">
+                        <Button text="Adapt Filters" type="Transparent" press=".onAdaptFilters" />
+                    </VBox>
+                </HBox>
+            </f:DynamicPageHeader>
+        </f:header>
+
+        <f:content>
+            <Table
+                id="salesOrdersTable"
+                mode="SingleSelectLeft"
+                items="{
+                    path: '/SalesOrders',
+                    parameters: {
+                        $expand: 'customer,items',
+                        $orderby: 'orderDate desc'
+                    }
+                }"
+                itemPress=".onItemPress"
+                selectionChange=".onSelectionChange"
+                growing="true"
+                growingThreshold="20">
+
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title id="tableTitle" text="Sales Orders (0)" level="H3" />
+                        <ToolbarSpacer />
+                        <Button
+                            id="btnSendToHoD"
+                            text="Send to HoD for Approval"
+                            type="Emphasized"
+                            press=".onSendToHoD"
+                            enabled="false" />
+                        <OverflowToolbarButton icon="sap-icon://action-settings" tooltip="Column Settings" />
+                    </OverflowToolbar>
+                </headerToolbar>
+
+                <columns>
+                    <!-- PDF Page 3: Order | Customer | Type | Gross Amount | Discount | Net Amount | Status -->
+                    <Column width="12rem">
+                        <Text text="Order" />
+                    </Column>
+                    <Column width="15rem">
+                        <Text text="Customer" />
+                    </Column>
+                    <Column width="8rem">
+                        <Text text="Type" />
+                    </Column>
+                    <Column width="10rem" hAlign="End">
+                        <Text text="Gross Amount" />
+                    </Column>
+                    <Column width="8rem" hAlign="End">
+                        <Text text="Discount %" />
+                    </Column>
+                    <Column width="10rem" hAlign="End">
+                        <Text text="Net Amount" />
+                    </Column>
+                    <Column width="12rem">
+                        <Text text="Status" />
+                    </Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem type="Navigation" press=".onItemPress">
+                        <cells>
+                            <ObjectIdentifier title="{orderNumber}" />
+                            <Text text="{customer/name}" />
+                            <ObjectStatus
+                                text="{customer/customerType}"
+                                state="{parts: [{path: 'customer/customerType'}], formatter: '.formatTypeState'}" />
+                            <ObjectNumber
+                                number="{parts: [{path: 'grossAmount'}], formatter: '.formatAmount'}"
+                                unit="INR"
+                                state="None" />
+                            <ObjectNumber
+                                number="{parts: [{path: 'discountPercent'}], formatter: '.formatPercent'}"
+                                unit="%"
+                                state="None" />
+                            <ObjectNumber
+                                number="{parts: [{path: 'netAmount'}], formatter: '.formatAmount'}"
+                                unit="INR"
+                                state="None" />
+                            <ObjectStatus
+                                text="{status}"
+                                state="{parts: [{path: 'status'}], formatter: '.formatStatusState'}"
+                                icon="{parts: [{path: 'status'}], formatter: '.formatStatusIcon'}"
+                                inverted="false" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+
+                <noData>
+                    <IllustratedMessage
+                        illustrationType="sapIllus-NoData"
+                        title="No Sales Orders Found"
+                        description="Create a new sales order to get started." />
+                </noData>
+
+            </Table>
+        </f:content>
+
+    </f:DynamicPage>
+
+</mvc:View>

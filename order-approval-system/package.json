@@ -1,0 +1,54 @@
+{
+  "name": "order-approval-system",
+  "version": "1.0.0",
+  "description": "SAP Order Approval Management System (CAP, HANA, BPA, Fiori) — Raven Infotech",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "watch": "cds watch",
+    "build": "cds build --production",
+    "test": "node --test test/discount-test.js && node --test test/service-test.js",
+    "mta-build": "mbt build"
+  },
+  "dependencies": {
+    "@cap-js/hana": "^3.0.0",
+    "@sap/cds": "^10.0.0",
+    "@sap/xssec": "^4.0.0",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^3.0.0",
+    "@sap/cds-dk": "^10.0.0"
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "[production]": {
+          "kind": "hana",
+          "deploy-format": "hdbtable"
+        },
+        "kind": "sqlite",
+        "credentials": {
+          "url": "db.sqlite"
+        }
+      },
+      "auth": {
+        "[production]": {
+          "kind": "xsuaa"
+        }
+      },
+      "bpa-api": {
+        "kind": "rest",
+        "credentials": {
+          "destination": "bpa-api"
+        }
+      }
+    },
+    "build": {
+      "target": "gen"
+    }
+  }
+}
