@@ -37,7 +37,7 @@
       },
       "auth": {
         "[production]": {
-          "kind": "xsuaa"
+          "kind": "dummy"
         }
       },
       "bpa-api": {

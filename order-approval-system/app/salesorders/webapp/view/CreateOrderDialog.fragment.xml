@@ -1,0 +1,43 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form">
+    <Dialog
+        id="createOrderDialog"
+        title="Create New Sales Order"
+        contentWidth="480px">
+        <f:SimpleForm
+            editable="true"
+            layout="ResponsiveGridLayout"
+            labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12">
+            <f:content>
+                <Label text="Order Number" />
+                <Input value="{form>/orderNumber}" editable="false" />
+
+                <Label text="Customer ID" required="true" />
+                <Input value="{form>/customer_ID}" placeholder="e.g. CUST001" />
+
+                <Label text="Product" required="true" />
+                <Input value="{form>/product}" placeholder="Product name or description" />
+
+                <Label text="Quantity" />
+                <StepInput value="{form>/quantity}" min="1" max="1000" />
+
+                <Label text="Unit Price (USD)" />
+                <Input value="{form>/unitPrice}" type="Number" placeholder="0.00" />
+
+                <Label text="Gross Amount (USD)" required="true" />
+                <Input value="{form>/grossAmount}" type="Number" placeholder="0.00" />
+
+                <Label text="Requested By" />
+                <Input value="{form>/requestedBy}" editable="false" />
+            </f:content>
+        </f:SimpleForm>
+        <beginButton>
+            <Button text="Create" type="Emphasized" press=".onCreateConfirm" />
+        </beginButton>
+        <endButton>
+            <Button text="Cancel" press=".onCreateCancel" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

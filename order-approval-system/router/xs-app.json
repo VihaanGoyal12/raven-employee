@@ -8,7 +8,7 @@
   "routes": [
     {
       "source": "^/sales/(.*)$",
-      "target": "/sales/$1",
+      "target": "/odata/v4/sales/$1",
       "destination": "srv-api",
       "authenticationType": "none",
       "csrfProtection": false

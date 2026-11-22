@@ -15,8 +15,8 @@ sap.ui.define([
 
             oView.setModel(new sap.ui.model.json.JSONModel({ selectedOrder: null }), "listPage");
 
-            oTable.getBinding("items").attachDataReceived(function (oEvent) {
-                const iCount = oEvent.getParameter("data")?.value?.length ?? 0;
+            oTable.attachUpdateFinished(function (oEvent) {
+                const iCount = oEvent.getParameter("total") ?? 0;
                 this.byId("tableTitle").setText("Sales Orders (" + iCount + ")");
             }.bind(this));
         },

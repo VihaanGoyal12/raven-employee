@@ -1,6 +1,6 @@
 using raven.sales as sales from '../db/schema';
 
-service SalesService @(path: 'sales') {
+service SalesService @(path: 'sales', requires: 'any') {
 
     entity Customers as projection on sales.Customers;
 
