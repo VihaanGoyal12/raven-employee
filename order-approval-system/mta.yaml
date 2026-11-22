@@ -76,11 +76,9 @@ modules:
     type: html5
     path: app/salesorders
     build-parameters:
-      build-result: dist
+      build-result: webapp
       builder: custom
-      commands:
-        - npm install
-        - bash -c 'mkdir -p dist && cp -r webapp/* dist/'
+      commands: []
       supported-platforms: []
 
   # ─── HTML5 Content Deployer ──────────────────────────────────────────────────
