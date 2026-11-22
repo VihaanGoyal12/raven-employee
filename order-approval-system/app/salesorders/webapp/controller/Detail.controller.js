@@ -23,7 +23,7 @@ sap.ui.define([
             });
         },
 
-        _onDataReceived: function (oEvent) {
+        _onDataReceived: function (oEvent) { return; // disabled
             const oData = oEvent.getParameter("data");
             if (!oData) {
                 MessageBox.error("Order not found.");
