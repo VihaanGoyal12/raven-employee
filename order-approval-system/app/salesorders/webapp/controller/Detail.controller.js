@@ -15,8 +15,7 @@ sap.ui.define([
 
         _onObjectMatched: function (oEvent) {
             const sOrderId = decodeURIComponent(oEvent.getParameter("arguments").orderId);
-            const oView = this.getView();
-            oView.bindElement({
+            this.getView().bindElement({
                 path: "/SalesOrders(" + sOrderId + ")",
                 parameters: { $expand: "customer,items" }
             });
@@ -29,13 +28,19 @@ sap.ui.define([
         },
 
         formatAmount: function (fVal) {
-            if (fVal == null || fVal === undefined) return "0.00 USD";
-            return parseFloat(fVal).toFixed(2) + " USD";
+            if (fVal == null || fVal === undefined) return "0.00";
+            return parseFloat(fVal).toFixed(2);
         },
 
         formatPercent: function (fVal) {
-            if (fVal == null || fVal === undefined) return "0.00 %";
-            return parseFloat(fVal).toFixed(2) + " %";
+            if (fVal == null || fVal === undefined) return "0.00";
+            return parseFloat(fVal).toFixed(2);
+        },
+
+        formatLineTotal: function (iQty, fPrice) {
+            const q = parseFloat(iQty) || 0;
+            const p = parseFloat(fPrice) || 0;
+            return (q * p).toFixed(2);
         },
 
         formatDate: function (sDate) {
@@ -74,6 +79,18 @@ sap.ui.define([
                 case "Premium":    return "Information";
                 default:           return "None";
             }
+        },
+
+        canSendToHoD: function (sStatus) {
+            return sStatus === "New" || sStatus === "Rejected";
+        },
+
+        canEdit: function (sStatus) {
+            return sStatus === "New";
+        },
+
+        hasComments: function (sHOD, sFinance) {
+            return !!(sHOD || sFinance);
         },
 
         // ─── Actions ───────────────────────────────────────────────────────────
